@@ -1,6 +1,15 @@
 import { useState } from 'react';
 import './App.css';
 
+//Material UI
+import {
+  TextField,
+  Button,
+  Typography,
+  Container,
+  Avatar
+} from "@mui/material";
+
 function App() {
 
   const [profile, setProfile] = useState("null");
@@ -66,16 +75,18 @@ function App() {
 
   const DisplayProfile = () => {
     return(
-      <div>
-          <p>Login Name: {profile.login}</p>
-          <p>Name: {profile.name}</p>
-          <p>Created at: {profile.created_at}</p>
-          <p>Followers: {profile.followers}</p>
-          <p>Repo count: {profile.public_repos}</p>
-          <img src={profile.avatar_url} alt={"Profile IMG"}/>
+      <div className='ProfileCard'>
+        <Container style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
+            <Typography>Login Name: {profile.login}</Typography>
+            <Typography>Name: {profile.name}</Typography>
+            <Typography>Created at: {profile.created_at}</Typography>
+            <Typography>Followers: {profile.followers}</Typography>
+            <Typography>Repo count: {profile.public_repos}</Typography>
+            <Avatar src={profile.avatar_url} variant="rounded" alt={"Profile IMG"} sx={{ width: 56, height: 56}}/>
+        </Container>
       </div>
     );  
-}
+  }
 
   //TODO: error handling for when fetch yields 404
   //TODO: create a good layout, maybe use a framework like bootstrap
