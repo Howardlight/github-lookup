@@ -1,51 +1,51 @@
-import { useEffect, useState } from 'react';
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
-
 
 function App() {
 
-  // init States
   const [profile, setProfile] = useState("null");
-  const [profileKey, setProfileKey] = useState("defunkt");
+  const [searchQuery, setSearchQuery] = useState("defunkt");
+  // const [error, setError] = useState("");
 
-  // Fetch Item
-  useEffect(() => {
+  
+  async function getProfileData(key) {
     const baseUrl = "https://api.github.com/users/";
-    fetch(`${baseUrl}${profileKey}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response =>  {return response.json()} )
-    .then(data => {
+      fetch(`${baseUrl}${key}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(response =>  {return response.json()} )
+      .then(data => {
+        console.log(data);
+        setProfile(data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
 
-      console.log(data);
-      setProfile(data);
-    
-    })
-    .catch(err => {
-      console.log(err);
-    })
-  },[profileKey]);
+  // FORM FUNCTIONS
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    getProfileData(searchQuery);
+  }
 
+  const handleQueryChange = (e) => {
+    setSearchQuery(e.target.value);
+  }
+
+  //TODO: error handling for when fetch yields 404
+  //TODO: create a good layout, maybe use a framework like bootstrap
+  //TODO: Add animations
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          {profile.name}
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <p>{profile.name}</p>
+        <form onSubmit={handleOnSubmit}>
+          <input type={"text"} placeholder='Search for a Profile' onChange={handleQueryChange}/>
+          <button type='submit'>Search</button>
+        </form>
     </div>
   );
 }
