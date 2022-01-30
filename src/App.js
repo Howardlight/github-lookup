@@ -91,14 +91,26 @@ function App() {
   //TODO: Add animations
   //TODO: Create func that will get top 4 repos, use https://api.github.com/users/Howardlight/repos
   return (
-    <div className="App">
-        <form onSubmit={handleOnSubmit}>
-          <input type={"text"} placeholder='Search for a Profile' onChange={handleQueryChange}/>
-          <button type='submit'>Search</button>
-        </form>
+    <Container className="App" maxWidth="sm">
+
+      <Hero />
+
+
+
+        <div className='Form' style={{margin: "1em"}}>
+          <form onSubmit={handleOnSubmit}>
+            <TextField color="primary" variant="outlined" label="Github Profile" type='text' onChange={handleQueryChange}/>
+            <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained" type='submit'>Search</Button>
+          </form>
+        </div>
+
+
         {userExists ? <DisplayProfile /> : "404: USER NOT FOUND"}
-        
-    </div>
+
+
+        <Footer />
+
+      </Container>
   );
 }
 
