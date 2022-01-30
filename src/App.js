@@ -28,7 +28,7 @@ function App() {
     return response;
   }
 
-  async function getProfileData(key) {
+  function getProfileData(key) {
     const baseUrl = "https://api.github.com/users/";
     fetch(`${baseUrl}${key}`, {
       method: "GET",
@@ -37,15 +37,13 @@ function App() {
       }
     })
     .then(handleErrors)
-    .then(response =>  {return response.json()} )
+    .then(response => {return response.json()})
     .then(data => {
       // console.log(data);
+      setUserExists(true);
       setProfile(data);
     })
-    .catch(err => {
-      // setUserExists(false);
-      console.log(err);
-    })
+    .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
   }
 
   // FORM FUNCTIONS
