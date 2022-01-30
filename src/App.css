@@ -1,20 +1,11 @@
-.App {
+/* .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
+} */
+/* discord black #36393f */
+/* react black #282c34 */
 body {
-  background-color: #282c34;
+  background-color: #36393f;
+  font-family: Roboto;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -24,15 +15,8 @@ body {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.ProfileCard {
+  margin: 12px;
+  display: flex;
+  flex-direction: column;
 }
