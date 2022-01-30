@@ -48,6 +48,21 @@ function App() {
     setSearchQuery(e.target.value);
   }
 
+  const Hero = () => {
+    return(
+      <Typography variant="h4" component="h1" gutterBottom>
+        Github Profiles
+      </Typography>
+    );
+  }
+
+  const Footer = () => {
+    return(
+      <Typography variant="body2" color="text.secondary" align="center">
+        Created by HowardLight, 2022
+      </Typography>
+    );
+  }
 
   const DisplayProfile = () => {
     return(
