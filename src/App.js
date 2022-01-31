@@ -7,7 +7,8 @@ import {
   Button,
   Typography,
   Container,
-  Avatar
+  Avatar,
+  Paper,
 } from "@mui/material";
 
 function App() {
@@ -74,13 +75,17 @@ function App() {
   const DisplayProfile = () => {
     return(
       <div className='ProfileCard'>
-        <Container style={{display: "flex", justifyContent: "center", flexDirection: "column"}}>
-            <Typography>Login Name: {profile.login}</Typography>
-            <Typography>Name: {profile.name}</Typography>
-            <Typography>Created at: {profile.created_at}</Typography>
-            <Typography>Followers: {profile.followers}</Typography>
-            <Typography>Repo count: {profile.public_repos}</Typography>
-            <Avatar src={profile.avatar_url} variant="rounded" alt={"Profile IMG"} sx={{ width: 56, height: 56}}/>
+        <Container style={{marginTop: "20px", marginBottom: "20px"}}>
+          <Paper elevation={10} style={{padding: "20px", paddingLeft:"10px", paddingRight: "10px", display:"flex"}}>
+            <Container>
+              <Typography>Login Name: {profile.login}</Typography>
+              <Typography>Name: {profile.name}</Typography>
+              <Typography>Created at: {profile.created_at}</Typography>
+              <Typography>Followers: {profile.followers}</Typography>
+              <Typography>Repo count: {profile.public_repos}</Typography>
+            </Container>
+            <Avatar src={profile.avatar_url} variant="rounded" alt={"Profile IMG"} sx={{ width: 128, height: 128}}/>
+          </Paper>
         </Container>
       </div>
     );  
