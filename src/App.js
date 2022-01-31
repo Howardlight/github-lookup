@@ -97,7 +97,7 @@ function App() {
 
 
 
-        <div className='Form' style={{margin: "1em"}}>
+        <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
           <form onSubmit={handleOnSubmit}>
             <TextField color="primary" variant="outlined" label="Github Profile" type='text' onChange={handleQueryChange}/>
             <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained" type='submit'>Search</Button>
