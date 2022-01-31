@@ -16,9 +16,10 @@ function App() {
   const [profile, setProfile] = useState("null");
   const [searchQuery, setSearchQuery] = useState("defunkt");
   const [userExists, setUserExists] = useState(true); 
+  const [repos, setRepos] = useState(null);
   //TODO: modify this to be three states,
   // exists does, not exist and onMount(nothing displays)
-  // const [error, setError] = useState("");
+
 
   // helper Func, used in getProfileData 
   function handleErrors(response) {
