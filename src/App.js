@@ -71,6 +71,27 @@ function App() {
     })
     .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
   }
+  // Sorts Array  by stargazers_count ascending
+  function filterRepoData(obj) {
+
+    // const duplicateElement = toFindDuplicates(obj);
+    // console.log(duplicateElement);
+
+    let temp = null;
+    for(let i = 0; i < obj.length; i++){
+      for(let j = i+1; j < obj.length; j++){
+        // if(obj[j] === undefined) continue;
+        
+        if(obj[j].stargazers_count < obj[i].stargazers_count){
+          temp = obj[i];
+          obj[i] = obj[j];
+          obj[j] = temp;
+        }
+      }
+    }
+    return obj;
+  }
+
   // FORM FUNCTIONS
   const handleOnSubmit = (event) => {
     event.preventDefault();
