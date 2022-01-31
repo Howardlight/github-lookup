@@ -48,6 +48,29 @@ function App() {
     .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
   }
 
+  async function getRepoData(key) {
+    const baseUrl = "https://api.github.com/users/";
+    fetch(`${baseUrl}${key}/repos`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(handleErrors)
+    .then(response => {return response.json()})
+    .then(data => {
+      // console.log(data);
+
+
+      // return filterRepoData(data);
+      data = filterRepoData(data);
+      setRepos(data);
+      // console.log(repos);
+      // setUserExists(true);
+      // setProfile(data);
+    })
+    .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
+  }
   // FORM FUNCTIONS
   const handleOnSubmit = (event) => {
     event.preventDefault();
