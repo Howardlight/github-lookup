@@ -112,7 +112,7 @@ function App() {
   const Footer = () => {
     return(
       <Typography variant="body2" color="text.secondary" align="center">
-        Created by HowardLight, 2022
+        Created by <a href="https://github.com/Howardlight" style={{textDecoration: "none"}}>HowardLight</a>, 2022
       </Typography>
     );
   }
