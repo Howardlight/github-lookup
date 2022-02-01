@@ -109,13 +109,6 @@ function App() {
     setSearchQuery(e.target.value);
   }
 
-  const Hero = () => {
-    return(
-      <Typography variant="h4" component="h1" gutterBottom>
-        Github Profiles
-      </Typography>
-    );
-  }
 
   const DisplayProfile = () => {
     return(
