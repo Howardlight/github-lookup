@@ -13,11 +13,10 @@ import {
   CardActionArea,
 } from "@mui/material";
 
-// ICONS
-import WarningIcon from '@mui/icons-material/Warning';
-
 import repoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
+import Hero from "./components/Hero";
+import Display404 from './components/Display404';
 
 function App() {
 
@@ -100,15 +99,6 @@ function App() {
     return obj;
   }
 
-  // FORM FUNCTIONS
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
-    getProfileData(searchQuery);
-  }
-  const handleQueryChange = (e) => {
-    setSearchQuery(e.target.value);
-  }
-
 
   const DisplayProfile = () => {
     return(
@@ -136,19 +126,14 @@ function App() {
     return(<div> {top4.map(repo => {return repoCard(repo)})}</div>);
   }
 
-  // TODO improve this
-  const Display404 = () => {
-    return(
-      <div className='ProfileCard'>
-        <Container style={{marginTop: "20px", marginBottom: "20px"}}>
-          <Paper elevation={10} style={{padding: "20px", paddingLeft:"20px", paddingRight: "20px", display:"flex"}}>
-            <Container style={{padding: "30px"}}>
-              <Typography variant="h5" style={{display: "inline-flex", alignItems: "center"}}><WarningIcon fontSize="large" color="warning"/>404: User not found</Typography>
-            </Container>
-          </Paper>
-        </Container>
-      </div>
-    );
+  // FORM FUNCTIONS
+  const handleOnSubmit = async (event) => {
+    event.preventDefault();
+    await getProfileData(searchQuery);
+    await getRepoData(searchQuery);
+  }
+  const handleQueryChange = (e) => {
+    setSearchQuery(e.target.value);
   }
 
   //TODO: create a good layout, maybe use a framework like bootstrap
