@@ -9,7 +9,14 @@ import {
   Container,
   Avatar,
   Paper,
+  Card,
+  CardActionArea,
 } from "@mui/material";
+
+// ICONS
+import StarIcon from '@mui/icons-material/Star';
+import ForkRightIcon from '@mui/icons-material/ForkRight';
+import WarningIcon from '@mui/icons-material/Warning';
 
 function App() {
 
