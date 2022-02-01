@@ -17,6 +17,7 @@ import {
 import WarningIcon from '@mui/icons-material/Warning';
 
 import repoCard from "./components/RepoCard";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -112,14 +113,6 @@ function App() {
     return(
       <Typography variant="h4" component="h1" gutterBottom>
         Github Profiles
-      </Typography>
-    );
-  }
-
-  const Footer = () => {
-    return(
-      <Typography variant="body2" color="text.secondary" align="center">
-        Created by <a href="https://github.com/Howardlight" style={{textDecoration: "none"}}>HowardLight</a>, 2022
       </Typography>
     );
   }
