@@ -136,6 +136,13 @@ function App() {
     );  
   }
 
+  const DisplayRepos = ({repos}) => {
+    let top4 = repos.slice(-4);
+    console.log(top4);
+
+    return(<div> {top4.map(repo => {return repoCard(repo)})}</div>);
+  }
+
   // TODO improve this
   const Display404 = () => {
     return(
