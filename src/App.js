@@ -1,3 +1,4 @@
+// React
 import { 
   useState,
   useContext,
@@ -5,9 +6,6 @@ import {
   useMemo,
 } from 'react';
 import './App.css';
-
-//Axios
-import axios from "axios";
 
 //Material UI
 import {
@@ -17,8 +15,8 @@ import {
   Container,
   Avatar,
   Paper,
-  Card,
-  CardActionArea,
+  // Card,
+  // CardActionArea,
   createTheme,
   useTheme,
   ThemeProvider,
@@ -28,11 +26,12 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { CssBaseline } from '@mui/material';
 
-// COMPONENTS
+// Components
 import repoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Display404 from './components/Display404';
+import { getProfileData, getRepoData } from './components/Utils';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 function App() {
@@ -41,77 +40,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("defunkt");
   const [userExists, setUserExists] = useState(true); 
   const [repos, setRepos] = useState(null);
-  //TODO: modify this to be three states,
-  // exists does, not exist and onMount(nothing displays)
-  
-
-  async function getProfileData(key) {
-    const baseUrl = "https://api.github.com/users/";
-    await axios(`${baseUrl}${key}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => {
-      setUserExists(true);
-      setProfile(response.data);
-    })
-    .catch(err => {
-      setUserExists(false);
-      setRepos(null);
-      console.log(err)
-    })
-  }
-
-  async function getRepoData(key) {
-    const baseUrl = "https://api.github.com/users/";
-    axios(`${baseUrl}${key}/repos`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    .then(response => {
-      response = filterRepoData(response.data);
-      setRepos(response);
-    })
-    .catch(err => {console.log(err);})
-  }
-
-
-  // CAN BE USED FOR LATER
-  // function toFindDuplicates(arry) {
-  //   const uniqueElements = new Set(arry);
-  //   const filteredElements = arry.filter(item => {
-  //       if (uniqueElements.has(item.id)) {
-  //           uniqueElements.delete(item);
-  //       } else {
-  //           return item;
-  //       }
-  //   });
-
-  //   return [...new Set(uniqueElements)]
-  // }
-
-
-  // Sorts Array  by stargazers_count ascending
-  function filterRepoData(obj) {
-    // const duplicateElement = toFindDuplicates(obj);
-    // console.log(duplicateElement);
-    let temp = null;
-    for(let i = 0; i < obj.length; i++){
-      for(let j = i+1; j < obj.length; j++){
-        if(obj[j].stargazers_count < obj[i].stargazers_count){
-          temp = obj[i];
-          obj[i] = obj[j];
-          obj[j] = temp;
-        }
-      }
-    }
-    return obj;
-  }
-
 
   const DisplayProfile = () => {
     return(
@@ -135,7 +63,7 @@ function App() {
   // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
     let top4 = repos.slice(-4);
-    console.log(top4);
+    // console.log(top4);
 
     return(<div> {top4.map(repo => {return repoCard(repo)})}</div>);
   }
@@ -143,8 +71,24 @@ function App() {
   // FORM FUNCTIONS
   const handleOnSubmit = async (event) => {
     event.preventDefault();
-    await getProfileData(searchQuery);
-    await getRepoData(searchQuery);
+
+    const profile = await getProfileData(searchQuery);
+    if(profile != null){ // if object exists
+      setUserExists(true);
+      setProfile(profile);
+    } else {
+      setUserExists(false);
+      setRepos(null);
+    }
+    
+    if(profile !=null){
+      const repositories = await getRepoData(searchQuery);
+      if(repositories != null){ // if repositories exist
+        setRepos(repositories);
+      } else {
+        setRepos(null);
+      }
+    }
   }
   const handleQueryChange = (e) => {
     setSearchQuery(e.target.value);
@@ -156,7 +100,9 @@ function App() {
   const colorMode = useContext(ColorModeContext);
   return (
     <Container className="App" maxWidth="sm">
+
       <Hero />
+      
       {theme.palette.mode} mode
         <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
       {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
