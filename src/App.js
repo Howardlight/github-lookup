@@ -81,7 +81,7 @@ function App() {
       setRepos(null);
     }
     
-    if(profile !=null){
+    if(profile != null){
       const repositories = await getRepoData(searchQuery);
       if(repositories != null){ // if repositories exist
         setRepos(repositories);
@@ -102,11 +102,13 @@ function App() {
     <Container className="App" maxWidth="sm">
 
       <Hero />
-      
-      {theme.palette.mode} mode
-        <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-      {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-      </IconButton>
+
+      <Container style={{display: "inline-flex", justifyContent: "center", alignItems: "center"}}>
+        {theme.palette.mode} mode
+          <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
+      </Container>
 
       <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
         <form onSubmit={handleOnSubmit}>
@@ -115,12 +117,8 @@ function App() {
         </form>
       </div>
 
-
       {userExists ? <DisplayProfile /> : <Display404/>}
 
-
-      {/* TODO: Make 3 states, 1 for onMount, 1 for if no repos exists ect.., 1 for mapping the Cards and
-      displaying them  */}
       {
       repos != null ? 
       <DisplayRepos repos={repos}/> :
