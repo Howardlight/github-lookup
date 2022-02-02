@@ -103,8 +103,8 @@ function App() {
     return(
       <div className='ProfileCard'>
         <Container style={{marginTop: "20px", marginBottom: "20px"}}>
-          <Paper elevation={10} style={{padding: "20px", paddingLeft:"10px", paddingRight: "10px", display:"flex"}}>
-            <Container>
+          <Paper elevation={10} style={{padding: "20px", paddingLeft:"20px", paddingRight: "20px", display:"flex"}}>
+            <Container style={{display: "flex", flexDirection: "column", justifyContent: "flex-start"}}>
               <Typography>Login Name: {profile.login}</Typography>
               <Typography>Name: {profile.name}</Typography>
               <Typography>Created at: {profile.created_at}</Typography>
@@ -118,6 +118,7 @@ function App() {
     );  
   }
 
+  // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
     let top4 = repos.slice(-4);
     console.log(top4);
