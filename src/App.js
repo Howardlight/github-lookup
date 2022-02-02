@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './App.css';
 
+//Axios
+import axios from "axios";
+
 //Material UI
 import {
   TextField,
@@ -26,69 +29,65 @@ function App() {
   const [repos, setRepos] = useState(null);
   //TODO: modify this to be three states,
   // exists does, not exist and onMount(nothing displays)
+  
 
-
-  // helper Func, used in getProfileData 
-  function handleErrors(response) {
-    if(!response.ok) {
-      setUserExists(false);
-      throw Error(response.statusText);
-    }
-    return response;
-  }
-
-  function getProfileData(key) {
+  async function getProfileData(key) {
     const baseUrl = "https://api.github.com/users/";
-    fetch(`${baseUrl}${key}`, {
+    await axios(`${baseUrl}${key}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then(handleErrors)
-    .then(response => {return response.json()})
-    .then(data => {
-      // console.log(data);
+    .then(response => {
       setUserExists(true);
-      setProfile(data);
+      setProfile(response.data);
     })
-    .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
+    .catch(err => {
+      setUserExists(false);
+      setRepos(null);
+      console.log(err)
+    })
   }
 
   async function getRepoData(key) {
     const baseUrl = "https://api.github.com/users/";
-    fetch(`${baseUrl}${key}/repos`, {
+    axios(`${baseUrl}${key}/repos`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
       }
     })
-    .then(handleErrors)
-    .then(response => {return response.json()})
-    .then(data => {
-      // console.log(data);
-
-
-      // return filterRepoData(data);
-      data = filterRepoData(data);
-      setRepos(data);
-      // console.log(repos);
-      // setUserExists(true);
-      // setProfile(data);
+    .then(response => {
+      response = filterRepoData(response.data);
+      setRepos(response);
     })
-    .catch(err => console.log(err)) // It should not reach this point, handle errors will catch it
+    .catch(err => {console.log(err);})
   }
+
+
+  // CAN BE USED FOR LATER
+  // function toFindDuplicates(arry) {
+  //   const uniqueElements = new Set(arry);
+  //   const filteredElements = arry.filter(item => {
+  //       if (uniqueElements.has(item.id)) {
+  //           uniqueElements.delete(item);
+  //       } else {
+  //           return item;
+  //       }
+  //   });
+
+  //   return [...new Set(uniqueElements)]
+  // }
+
+
   // Sorts Array  by stargazers_count ascending
   function filterRepoData(obj) {
-
     // const duplicateElement = toFindDuplicates(obj);
     // console.log(duplicateElement);
-
     let temp = null;
     for(let i = 0; i < obj.length; i++){
       for(let j = i+1; j < obj.length; j++){
-        // if(obj[j] === undefined) continue;
-        
         if(obj[j].stargazers_count < obj[i].stargazers_count){
           temp = obj[i];
           obj[i] = obj[j];
