@@ -99,7 +99,7 @@ function App() {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
-    <Container className="App" maxWidth="sm">
+    <Container className="App" maxWidth="m">
 
       <Hero />
 
