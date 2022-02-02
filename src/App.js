@@ -144,22 +144,27 @@ function App() {
     <Container className="App" maxWidth="sm">
       <Hero />
 
+      <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
+        <form onSubmit={handleOnSubmit}>
+          <TextField color="primary" variant="outlined" label="Github Profile" type='text' onChange={handleQueryChange}/>
+          <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained" type='submit'>Search</Button>
+        </form>
+      </div>
 
 
-        <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
-          <form onSubmit={handleOnSubmit}>
-            <TextField color="primary" variant="outlined" label="Github Profile" type='text' onChange={handleQueryChange}/>
-            <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained" type='submit'>Search</Button>
-          </form>
-        </div>
+      {userExists ? <DisplayProfile /> : <Display404/>}
 
 
-        {userExists ? <DisplayProfile /> : "404: USER NOT FOUND"}
-
-
-        <Footer />
-
-      </Container>
+      {/* TODO: Make 3 states, 1 for onMount, 1 for if no repos exists ect.., 1 for mapping the Cards and
+      displaying them  */}
+      {
+      repos != null ? 
+      <DisplayRepos repos={repos}/> :
+      ""
+      }
+      
+      <Footer />
+    </Container>
   );
 }
 
