@@ -11,12 +11,7 @@ import './App.css';
 import {
   TextField,
   Button,
-  Typography,
   Container,
-  Avatar,
-  Paper,
-  // Card,
-  // CardActionArea,
   createTheme,
   useTheme,
   ThemeProvider,
@@ -42,6 +37,7 @@ function App() {
   const [userExists, setUserExists] = useState(true); 
   const [repos, setRepos] = useState(null);
 
+  
   // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
     let top4 = repos.slice(-4);
@@ -77,7 +73,6 @@ function App() {
   }
 
   //TODO: Add animations
-  //TODO: Create func that will get top 4 repos, use https://api.github.com/users/Howardlight/repos
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
