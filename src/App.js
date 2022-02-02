@@ -1,4 +1,9 @@
-import { useState } from 'react';
+import { 
+  useState,
+  useContext,
+  createContext,
+  useMemo,
+} from 'react';
 import './App.css';
 
 //Axios
@@ -14,13 +19,22 @@ import {
   Paper,
   Card,
   CardActionArea,
+  createTheme,
+  useTheme,
+  ThemeProvider,
 } from "@mui/material";
+import { IconButton } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { CssBaseline } from '@mui/material';
 
+// COMPONENTS
 import repoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Display404 from './components/Display404';
 
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 function App() {
 
   const [profile, setProfile] = useState("null");
@@ -136,14 +150,17 @@ function App() {
     setSearchQuery(e.target.value);
   }
 
-  //TODO: create a good layout, maybe use a framework like bootstrap
   //TODO: Add animations
   //TODO: Create func that will get top 4 repos, use https://api.github.com/users/Howardlight/repos
-  //TODO: Turn the 404 into a Component, use Material UI
-  //TODO: add light mode/ dark mode
+  const theme = useTheme();
+  const colorMode = useContext(ColorModeContext);
   return (
     <Container className="App" maxWidth="sm">
       <Hero />
+      {theme.palette.mode} mode
+        <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+      {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+      </IconButton>
 
       <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
         <form onSubmit={handleOnSubmit}>
@@ -169,4 +186,37 @@ function App() {
   );
 }
 
-export default App;
+
+function ToggleColorMode() {
+  const [mode, setMode] = useState('light');
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
+  return (
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </ColorModeContext.Provider>
+  );
+}
+
+
+export default ToggleColorMode;
