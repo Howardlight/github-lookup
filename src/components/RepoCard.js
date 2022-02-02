@@ -9,7 +9,7 @@ import {
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 
-export default function repoCard(repo) {
+export default function RepoCard(repo) {
     const date = new Date(repo.created_at);
     return(
       <CardActionArea key={repo.id} href={repo.html_url} target="_blank">

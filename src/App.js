@@ -22,7 +22,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { CssBaseline } from '@mui/material';
 
 // Components
-import repoCard from "./components/RepoCard";
+import RepoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Display404 from './components/Display404';
@@ -37,13 +37,13 @@ function App() {
   const [userExists, setUserExists] = useState(true); 
   const [repos, setRepos] = useState(null);
 
-  
+
   // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
     let top4 = repos.slice(-4);
     // console.log(top4);
 
-    return(<div> {top4.map(repo => {return repoCard(repo)})}</div>);
+    return(<div> {top4.map(repo => {return RepoCard(repo)})}</div>);
   }
 
   // FORM FUNCTIONS
