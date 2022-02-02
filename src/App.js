@@ -31,6 +31,7 @@ import repoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Display404 from './components/Display404';
+import { DisplayProfile } from './components/DisplayProfile';
 import { getProfileData, getRepoData } from './components/Utils';
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
@@ -40,25 +41,6 @@ function App() {
   const [searchQuery, setSearchQuery] = useState("defunkt");
   const [userExists, setUserExists] = useState(true); 
   const [repos, setRepos] = useState(null);
-
-  const DisplayProfile = () => {
-    return(
-      <div className='ProfileCard'>
-        <Container style={{marginTop: "20px", marginBottom: "20px"}}>
-          <Paper elevation={10} style={{padding: "20px", paddingLeft:"20px", paddingRight: "20px", display:"flex"}}>
-            <Container style={{display: "flex", flexDirection: "column", justifyContent: "flex-start"}}>
-              <Typography>Login Name: {profile.login}</Typography>
-              <Typography>Name: {profile.name}</Typography>
-              <Typography>Created at: {profile.created_at}</Typography>
-              <Typography>Followers: {profile.followers}</Typography>
-              <Typography>Repo count: {profile.public_repos}</Typography>
-            </Container>
-            <Avatar src={profile.avatar_url} variant="rounded" alt={"Profile IMG"} sx={{ width: 128, height: 128}}/>
-          </Paper>
-        </Container>
-      </div>
-    );  
-  }
 
   // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
@@ -117,7 +99,7 @@ function App() {
         </form>
       </div>
 
-      {userExists ? <DisplayProfile /> : <Display404/>}
+      {userExists ? <DisplayProfile profile={profile} /> : <Display404/>}
 
       {
       repos != null ? 
