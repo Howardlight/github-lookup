@@ -4,14 +4,14 @@ import {
     Paper,
     Avatar
 } from "@mui/material";
-
+import styles from "./DisplayProfile.module.css";
 
 export function DisplayProfile({profile}) {
     return(
       <div className='ProfileCard'>
-        <Container style={{marginTop: "20px", marginBottom: "20px"}}>
-          <Paper elevation={10} style={{padding: "20px", paddingLeft:"20px", paddingRight: "20px", display:"flex"}}>
-            <Container style={{display: "flex", flexDirection: "column", justifyContent: "flex-start"}}>
+        <Container className={styles.mainContainer}>
+          <Paper elevation={10} className={styles.paper}>
+            <Container className={styles.secondaryContainer}>
               <Typography>Login Name: {profile.login}</Typography>
               <Typography>Name: {profile.name}</Typography>
               <Typography>Created at: {profile.created_at}</Typography>
