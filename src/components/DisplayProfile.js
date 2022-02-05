@@ -15,7 +15,7 @@ export function DisplayProfile({profile}) {
           <Container className={styles.secondaryContainer}>
             <Typography>Login Name: {profile.login}</Typography>
             <Typography>Name: {profile.name}</Typography>
-            <Typography>Created at: {date.toDateString()}</Typography>
+            <Typography>Created at: {profile.created_at === undefined ? "" : date.toDateString()}</Typography>
             <Typography>Followers: {profile.followers}</Typography>
             <Typography>Repo count: {profile.public_repos}</Typography>
           </Container>
