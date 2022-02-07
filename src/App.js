@@ -15,6 +15,7 @@ import {
   createTheme,
   useTheme,
   ThemeProvider,
+  Grid,
 } from "@mui/material";
 import { IconButton } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
@@ -73,10 +74,11 @@ function App() {
   }
 
   //TODO: Add animations
+  // USE FRAMER MOTIONS
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
-    <Container className="App" maxWidth="m">
+    <Grid container className="App" justifyContent="center" flexDirection="column" alignItems="center" flexWrap="nowrap">
 
       <Hero />
 
@@ -87,12 +89,10 @@ function App() {
         </IconButton>
       </Container>
 
-      <div className='Form' style={{margin: "1em", display: "flex", justifyContent: "center"}}>
-        <form onSubmit={handleOnSubmit}>
+      <form onSubmit={handleOnSubmit} style={{margin: "1em", display: "flex", justifyContent: "center"}}>
           <TextField color="primary" variant="outlined" label="Github Profile" type='text' onChange={handleQueryChange}/>
           <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained" type='submit'>Search</Button>
-        </form>
-      </div>
+      </form>
 
       {userExists ? <DisplayProfile profile={profile} /> : <Display404/>}
 
@@ -103,7 +103,7 @@ function App() {
       }
       
       <Footer />
-    </Container>
+    </Grid>
   );
 }
 
