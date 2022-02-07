@@ -16,6 +16,12 @@ body {
   /* color: white; */
 }
 
+@media only screen and (max-width: 600px) {
+  body{
+    display: block !important;
+  }
+}
+
 .ProfileCard {
   margin: 12px;
   display: flex;
