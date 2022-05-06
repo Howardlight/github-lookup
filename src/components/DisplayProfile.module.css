@@ -6,10 +6,10 @@
 
 .paper {
     padding: 20px;
-    padding-left:20px;
-    padding-right: 20px;
     display: flex;
     flex-direction: row;
+    max-width: 500px;
+    align-self: center;
 }
 
 .secondaryContainer {
