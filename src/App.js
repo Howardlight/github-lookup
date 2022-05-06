@@ -58,7 +58,7 @@ function App() {
 
         // Handle Empty input
         if(input === "") {
-            console.log("detected empty string input");
+            // console.log("detected empty string input");
             setDisplayError(true);
             return ;
         }
