@@ -42,6 +42,7 @@ function App() {
   // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
   const DisplayRepos = ({repos}) => {
     let top4 = repos.slice(-4);
+    top4 = top4.reverse();
     // console.log(top4);
 
     return(<div> {top4.map(repo => {return RepoCard(repo)})}</div>);
@@ -70,10 +71,12 @@ function App() {
     }
   }
   const handleQueryChange = (e) => {
+    e.preventDefault();
     setSearchQuery(e.target.value);
   }
 
   //TODO: Add animations
+  //TODO: Remove default SearchQuery State, handle Queries for when SearchQuery input is empty
   // USE FRAMER MOTIONS
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
