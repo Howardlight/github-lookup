@@ -49,13 +49,7 @@ function App() {
         let top4 = filterRepoData(repos).slice(-4);
         top4 = top4.reverse();
 
-        return (
-            <Fragment>
-                {
-                    top4.map(repo => {return RepoCard(repo)})
-                }
-            </Fragment>
-        );
+        return top4.map(repo => {return RepoCard(repo)})
     }
 
     // FORM FUNCTIONS
