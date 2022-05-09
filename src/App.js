@@ -1,5 +1,5 @@
 // React
-import {createContext, useContext, useMemo, useState, Fragment} from 'react';
+import {createContext, useContext, useMemo, useState, Fragment, Suspense} from 'react';
 import './App.css';
 
 //Material UI
@@ -7,6 +7,7 @@ import {
     Alert,
     Box,
     Button,
+    CircularProgress,
     Collapse,
     Container,
     createTheme,
@@ -14,7 +15,7 @@ import {
     IconButton,
     TextField,
     ThemeProvider,
-    useTheme
+    useTheme,
 } from "@mui/material";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -25,7 +26,8 @@ import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Display404 from './components/Display404';
 import {DisplayProfile} from './components/DisplayProfile';
-import {getProfileData, getRepoData} from './components/Utils';
+import {useRepo} from './components/Utils';
+import {filterRepoData} from './components/Utils';
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {
@@ -34,11 +36,8 @@ export const ColorModeContext = createContext({
 
 function App() {
 
-    const [profile, setProfile] = useState("null");
-    const [searchQuery, setSearchQuery] = useState("");
-    const [userExists, setUserExists] = useState(true);
-    const [repos, setRepos] = useState(null);
-    const [displayError, setDisplayError] = useState(false);
+    const [searchQuery, setSearchQuery] = useState("google");
+    const [displayError, setDisplayError] = useState(false);    
 
     // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
     const DisplayRepos = ({profileName}) => {
