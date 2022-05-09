@@ -1,20 +1,20 @@
 // React
-import {createContext, useContext, useMemo, useState,} from 'react';
+import {createContext, useContext, useMemo, useState, Fragment} from 'react';
 import './App.css';
 
 //Material UI
 import {
     Alert,
-    Button, Collapse,
+    Box,
+    Button,
+    Collapse,
     Container,
     createTheme,
     CssBaseline,
-    Grid,
     IconButton,
     TextField,
     ThemeProvider,
-    useTheme,
-    Box
+    useTheme
 } from "@mui/material";
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -46,14 +46,19 @@ function App() {
         top4 = top4.reverse();
         // console.log(top4);
 
-        return (<div> {top4.map(repo => {
-            return RepoCard(repo)
-        })}</div>);
+        return (
+            <Fragment>
+                {
+                    top4.map(repo => {return RepoCard(repo)})
+                }
+            </Fragment>
+        );
     }
 
     // FORM FUNCTIONS
     const handleOnSubmit = async (event) => {
         event.preventDefault();
+        setProfile("null");
         let input = event.target[0].value;
 
         // Handle Empty input
@@ -88,13 +93,11 @@ function App() {
     }
 
     //TODO: Add animations
-    //TODO: Remove default SearchQuery State, handle Queries for when SearchQuery input is empty
     // USE FRAMER MOTIONS
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
     return (
-        <Grid container className="App" justifyContent="center" flexDirection="column" alignItems="center"
-              flexWrap="nowrap">
+        <Box style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
 
             <Hero/>
 
@@ -105,7 +108,7 @@ function App() {
                 </IconButton>
             </Container>
 
-            <Box component={"div"}>
+            <Box component={"div"} style={{paddingBottom: "30px"}}>
                 <form onSubmit={handleOnSubmit} style={{margin: "1em", display: "flex", justifyContent: "center"}}>
                     <TextField color="primary" variant="outlined" label="Github Profile" type='text'
                                onChange={handleQueryChange}/>
@@ -127,7 +130,7 @@ function App() {
             }
 
             <Footer/>
-        </Grid>
+        </Box>
     );
 }
 
