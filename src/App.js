@@ -41,10 +41,16 @@ function App() {
     const [displayError, setDisplayError] = useState(false);
 
     // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
-    const DisplayRepos = ({repos}) => {
-        let top4 = repos.slice(-4);
+    const DisplayRepos = ({profileName}) => {
+        const { repos, isLoading, isError } = useRepo(profileName, true);
+
+
+        if(isLoading) return "";
+        if(isError) return "";
+
+        // Filters through repositories by Stargazers then picks the top4
+        let top4 = filterRepoData(repos).slice(-4);
         top4 = top4.reverse();
-        // console.log(top4);
 
         return (
             <Fragment>
@@ -58,38 +64,37 @@ function App() {
     // FORM FUNCTIONS
     const handleOnSubmit = async (event) => {
         event.preventDefault();
-        setProfile("null");
         let input = event.target[0].value;
 
         // Handle Empty input
         if(input === "") {
-            // console.log("detected empty string input");
             setDisplayError(true);
             return ;
         }
 
-        // check if user exists
-        const profile = await getProfileData(searchQuery);
-        if (profile != null) { // if object exists
-            setUserExists(true);
-            setProfile(profile);
-        } else {
-            setUserExists(false);
-            setRepos(null);
-        }
+        setSearchQuery(input);
 
-        if (profile != null) {
-            const repositories = await getRepoData(searchQuery);
-            if (repositories != null) { // if repositories exist
-                setRepos(repositories);
-            } else {
-                setRepos(null);
-            }
-        }
-    }
-    const handleQueryChange = (e) => {
-        e.preventDefault();
-        setSearchQuery(e.target.value);
+
+        
+
+        // check if user exists
+        // const profile = await getProfileData(searchQuery);
+        // if (profile != null) { // if object exists
+        //     setUserExists(true);
+        //     setProfile(profile);
+        // } else {
+        //     setUserExists(false);
+        //     setRepos(null);
+        // }
+
+        // if (profile != null) {
+        //     const repositories = await getRepoData(searchQuery);
+        //     if (repositories != null) { // if repositories exist
+        //         setRepos(repositories);
+        //     } else {
+        //         setRepos(null);
+        //     }
+        // }
     }
 
     //TODO: Add animations
@@ -111,7 +116,8 @@ function App() {
             <Box component={"div"} style={{paddingBottom: "30px"}}>
                 <form onSubmit={handleOnSubmit} style={{margin: "1em", display: "flex", justifyContent: "center"}}>
                     <TextField color="primary" variant="outlined" label="Github Profile" type='text'
-                               onChange={handleQueryChange}/>
+                            //    onChange={handleQueryChange}
+                               />
                     <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained"
                             type='submit'>Search</Button>
                 </form>
@@ -121,13 +127,18 @@ function App() {
             </Box>
 
 
-            {userExists ? <DisplayProfile profile={profile}/> : <Display404/>}
+            {/* {userExists ? <DisplayProfile profile={profile}/> : <Display404/>} */}
+            {/* <Suspense> */}
+                <DisplayProfile profileName={searchQuery} />
+            {/* </Suspense> */}
+            {/* <CircularProgress /> */}
 
-            {
-                repos != null ?
-                    <DisplayRepos repos={repos}/> :
-                    ""
-            }
+
+            {/* { */}
+                {/* repos != null ? */}
+                    <DisplayRepos profileName={searchQuery} /> :
+                    {/* "" */}
+            {/* } */}
 
             <Footer/>
         </Box>
