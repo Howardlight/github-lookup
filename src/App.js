@@ -1,5 +1,12 @@
 // React
-import {createContext, useContext, useMemo, useState, Fragment, Suspense} from 'react';
+import {
+    createContext, 
+    useContext, 
+    useMemo, 
+    useState,
+    // Fragment,
+    // Suspense
+} from 'react';
 import './App.css';
 
 //Material UI
@@ -133,6 +140,5 @@ function ToggleColorMode() {
         </ColorModeContext.Provider>
     );
 }
-
 
 export default ToggleColorMode;

@@ -1,11 +1,9 @@
 import {Avatar, CircularProgress, Container, Paper, Typography} from "@mui/material";
 import styles from "./DisplayProfile.module.css";
-import { Fragment, Suspense, useEffect } from "react";
-import { useProfile } from "./Utils";
+import {Fragment} from "react";
+import {useProfile} from "./Utils";
 
-export function DisplayProfile(
-    {profileName}
-    ) {
+export function DisplayProfile({profileName}) {
     
     const { profile, isLoading, isError } = useProfile(profileName);
     // console.log(profileName);
