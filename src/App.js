@@ -7,7 +7,6 @@ import {
     Alert,
     Box,
     Button,
-    CircularProgress,
     Collapse,
     Container,
     createTheme,
@@ -24,7 +23,6 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import RepoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
-import Display404 from './components/Display404';
 import {DisplayProfile} from './components/DisplayProfile';
 import {useRepo} from './components/Utils';
 import {filterRepoData} from './components/Utils';
@@ -70,30 +68,8 @@ function App() {
             setDisplayError(true);
             return ;
         }
-
-        setSearchQuery(input);
-
-
         
-
-        // check if user exists
-        // const profile = await getProfileData(searchQuery);
-        // if (profile != null) { // if object exists
-        //     setUserExists(true);
-        //     setProfile(profile);
-        // } else {
-        //     setUserExists(false);
-        //     setRepos(null);
-        // }
-
-        // if (profile != null) {
-        //     const repositories = await getRepoData(searchQuery);
-        //     if (repositories != null) { // if repositories exist
-        //         setRepos(repositories);
-        //     } else {
-        //         setRepos(null);
-        //     }
-        // }
+        setSearchQuery(input);
     }
 
     //TODO: Add animations
@@ -101,24 +77,22 @@ function App() {
     const theme = useTheme();
     const colorMode = useContext(ColorModeContext);
     return (
-        <Box style={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center"}}>
+        <Box style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
 
-            <Hero/>
+            <Hero />
 
-            <Container style={{display: "inline-flex", justifyContent: "center", alignItems: "center"}}>
+            <Container style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                 {theme.palette.mode} mode
-                <IconButton sx={{ml: 1}} onClick={colorMode.toggleColorMode} color="inherit">
-                    {theme.palette.mode === 'dark' ? <Brightness7Icon/> : <Brightness4Icon/>}
+                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>
             </Container>
 
-            <Box component={"div"} style={{paddingBottom: "30px"}}>
-                <form onSubmit={handleOnSubmit} style={{margin: "1em", display: "flex", justifyContent: "center"}}>
-                    <TextField color="primary" variant="outlined" label="Github Profile" type='text'
-                            //    onChange={handleQueryChange}
-                               />
-                    <Button style={{minHeight: "55px", marginLeft: "10px"}} size="large" variant="contained"
-                            type='submit'>Search</Button>
+            <Box component={"div"} style={{ paddingBottom: "30px" }}>
+                <form onSubmit={handleOnSubmit} style={{ margin: "1em", display: "flex", justifyContent: "center" }}>
+                    <TextField color="primary" variant="outlined" label="Github Profile" type='text'/>
+                    <Button style={{ minHeight: "55px", marginLeft: "10px" }} size="large" variant="contained"
+                        type='submit'>Search</Button>
                 </form>
                 <Collapse in={displayError}>
                     <Alert onClose={() => setDisplayError(false)} severity="error">Search Field cannot be <strong>Empty</strong>!</Alert>
@@ -126,20 +100,10 @@ function App() {
             </Box>
 
 
-            {/* {userExists ? <DisplayProfile profile={profile}/> : <Display404/>} */}
-            {/* <Suspense> */}
-                <DisplayProfile profileName={searchQuery} />
-            {/* </Suspense> */}
-            {/* <CircularProgress /> */}
+            <DisplayProfile profileName={searchQuery} />
+            <DisplayRepos profileName={searchQuery} />
 
-
-            {/* { */}
-                {/* repos != null ? */}
-                    <DisplayRepos profileName={searchQuery} /> :
-                    {/* "" */}
-            {/* } */}
-
-            <Footer/>
+            <Footer />
         </Box>
     );
 }
