@@ -65,12 +65,7 @@ function App() {
 
             <Hero />
 
-            <Container style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
-                {theme.palette.mode} mode
-                <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                    {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-                </IconButton>
-            </Container>
+            <ThemeButton colorMode={colorMode} theme={theme} />
 
             <Box component={"div"} style={{ paddingBottom: "30px" }}>
                 <form onSubmit={handleOnSubmit} style={{ margin: "1em", display: "flex", justifyContent: "center" }}>
@@ -89,6 +84,17 @@ function App() {
 
             <Footer />
         </Box>
+    );
+}
+
+function ThemeButton({colorMode, theme}) {
+    return (
+        <Container style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+            {theme.palette.mode} mode
+            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
+                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+        </Container>
     );
 }
 
