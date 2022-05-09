@@ -27,10 +27,10 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 // Components
-import RepoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import DisplayProfile from './components/DisplayProfile';
+import DisplayRepos from './components/DisplayRepo';
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {
@@ -41,21 +41,6 @@ function App() {
 
     const [searchQuery, setSearchQuery] = useState("google");
     const [displayError, setDisplayError] = useState(false);    
-
-    // CAUTION: THIS COMPONENT REFRESHES EACH TIME SEARCH HAS INPUT
-    const DisplayRepos = ({profileName}) => {
-        const { repos, isLoading, isError } = useRepo(profileName, true);
-
-
-        if(isLoading) return "";
-        if(isError) return "";
-
-        // Filters through repositories by Stargazers then picks the top4
-        let top4 = filterRepoData(repos).slice(-4);
-        top4 = top4.reverse();
-
-        return top4.map(repo => {return RepoCard(repo)})
-    }
 
     // FORM FUNCTIONS
     const handleOnSubmit = async (event) => {
@@ -106,7 +91,6 @@ function App() {
         </Box>
     );
 }
-
 
 function ToggleColorMode() {
     const [mode, setMode] = useState('light');
