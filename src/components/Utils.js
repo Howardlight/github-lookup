@@ -16,8 +16,8 @@ export async function getProfileData(key) {
     return output;
 }
 
-export function useProfile(key) {
-  const { data, error } = useSWR(`https://api.github.com/users/${key}`, fetcher);
+export function useProfile(profileName) {
+  const { data, error } = useSWR(`https://api.github.com/users/${profileName}`, fetcher);
 
   return {
     profile: data,
