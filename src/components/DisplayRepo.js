@@ -10,7 +10,25 @@ import styles from "./RepoCard.module.css";
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 
-export default function RepoCard(repo) {
+import {useRepo, filterRepoData} from "./Utils";
+
+export default function DisplayRepos({profileName}) {
+  const { repos, isLoading, isError } = useRepo(profileName, true);
+
+
+  if(isLoading) return "";
+  if(isError) return "";
+
+  // Filters through repositories by Stargazers then picks the top4
+  let top4 = filterRepoData(repos).slice(-4);
+  top4 = top4.reverse();
+
+  return top4.map(repo => {return RepoCard(repo)})
+}
+
+
+
+function RepoCard(repo) {
     const date = new Date(repo.created_at);
     return(
       <CardActionArea key={repo.id} href={repo.html_url} target="_blank">
