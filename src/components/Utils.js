@@ -26,6 +26,16 @@ export function useProfile(profileName) {
   }
 }
 
+export function useRepo(profileName) {
+  const { data, error } = useSWR(`https://api.github.com/users/${profileName}/repos`, fetcher);
+
+  return {
+    repos: data,
+    isLoading: !error && !data,
+    isError: error
+  }
+}
+
 export async function getRepoData(key) {
     const baseUrl = "https://api.github.com/users/";
     var output = null;
