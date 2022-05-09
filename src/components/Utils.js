@@ -1,5 +1,6 @@
 import axios from "axios";
-
+import useSWR from "swr";
+const fetcher = url => axios.get(url).then(res => res.data);
 
 export async function getProfileData(key) {
     const baseUrl = "https://api.github.com/users/";
@@ -13,6 +14,16 @@ export async function getProfileData(key) {
     .then(response => output = response.data)
     .catch(err => {console.log(err)})
     return output;
+}
+
+export function useProfile(key) {
+  const { data, error } = useSWR(`https://api.github.com/users/${key}`, fetcher);
+
+  return {
+    profile: data,
+    isLoading: !error && !data,
+    isError: error
+  }
 }
 
 export async function getRepoData(key) {
