@@ -3,7 +3,7 @@ import styles from "./DisplayProfile.module.css";
 import {Fragment} from "react";
 import {useProfile} from "./Utils";
 
-export function DisplayProfile({profileName}) {
+export default function DisplayProfile({profileName}) {
     
     const { profile, isLoading, isError } = useProfile(profileName);
     // console.log(profileName);

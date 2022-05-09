@@ -30,9 +30,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import RepoCard from "./components/RepoCard";
 import Footer from "./components/Footer";
 import Hero from "./components/Hero";
-import {DisplayProfile} from './components/DisplayProfile';
-import {useRepo} from './components/Utils';
-import {filterRepoData} from './components/Utils';
+import DisplayProfile from './components/DisplayProfile';
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {
