@@ -3,9 +3,7 @@ import {createContext, useContext, useMemo, useState,} from 'react';
 import './App.css';
 
 //Material UI
-import {Box, Container, createTheme, CssBaseline, IconButton, ThemeProvider, useTheme,} from "@mui/material";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import {Box, createTheme, CssBaseline, ThemeProvider, useTheme,} from "@mui/material";
 
 // Components
 import Footer from "./components/Footer";
@@ -13,6 +11,7 @@ import Hero from "./components/Hero";
 import DisplayProfile from './components/DisplayProfile';
 import DisplayRepos from './components/DisplayRepo';
 import {SearchBox} from "./components/SearchBox";
+import {ThemeButton} from "./ThemeButton";
 
 export const ColorModeContext = createContext({
     toggleColorMode: () => {
@@ -57,17 +56,6 @@ function App() {
 
             <Footer />
         </Box>
-    );
-}
-
-function ThemeButton({colorMode, theme}) {
-    return (
-        <Container style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
-            {theme.palette.mode} mode
-            <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit">
-                {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-        </Container>
     );
 }
 
