@@ -2,8 +2,9 @@ import {Avatar, CircularProgress, Container, Paper, Typography} from "@mui/mater
 import styles from "./DisplayProfile.module.css";
 import {Fragment} from "react";
 import {useProfile} from "./Utils";
+import React from "react";
 
-export default function DisplayProfile({profileName}) {
+export default function DisplayProfile({profileName}: {profileName: string}) {
     
     const { profile, isLoading, isError } = useProfile(profileName);
     // console.log(profileName);

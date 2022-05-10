@@ -1,9 +1,9 @@
 // React
-import {createContext, useContext, useMemo, useState,} from 'react';
+import {createContext, SyntheticEvent, useContext, useMemo, useState,} from 'react';
 import './App.css';
 
 //Material UI
-import {Box, createTheme, CssBaseline, ThemeProvider, useTheme,} from "@mui/material";
+import {Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, useTheme,} from "@mui/material";
 
 // Components
 import Footer from "./components/Footer";
@@ -12,21 +12,20 @@ import DisplayProfile from './components/DisplayProfile';
 import DisplayRepos from './components/DisplayRepo';
 import {SearchBox} from "./components/SearchBox";
 import {ThemeButton} from "./ThemeButton";
+import React from 'react';
 
-export const ColorModeContext = createContext({
-    toggleColorMode: () => {
-    }
-});
+export const ColorModeContext = createContext({toggleColorMode: () => {}} );
 
 //TODO: Port to Typescript
 function App() {
 
-    const [searchQuery, setSearchQuery] = useState("google");
-    const [displayError, setDisplayError] = useState(false);    
+    const [searchQuery, setSearchQuery] = useState<string>("google");
+    const [displayError, setDisplayError] = useState<boolean>(false);
 
     // FORM FUNCTIONS
-    const handleOnSubmit = async (event) => {
+    const handleOnSubmit = async (event: SyntheticEvent) => {
         event.preventDefault();
+        // @ts-ignore
         let input = event.target[0].value;
 
         // Handle Empty input
@@ -60,7 +59,7 @@ function App() {
 }
 
 function ToggleColorMode() {
-    const [mode, setMode] = useState('light');
+    const [mode, setMode] = useState<PaletteMode>('light');
     const colorMode = useMemo(
         () => ({
             toggleColorMode: () => {

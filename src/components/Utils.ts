@@ -1,8 +1,9 @@
 import axios from "axios";
 import useSWR from "swr";
-const fetcher = url => axios.get(url).then(res => res.data);
+import {Repository} from "../types";
+const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-export async function getProfileData(key) {
+export async function getProfileData(key: string) {
     const baseUrl = "https://api.github.com/users/";
     var output = null;
     await axios(`${baseUrl}${key}`, {
@@ -16,7 +17,7 @@ export async function getProfileData(key) {
     return output;
 }
 
-export function useProfile(profileName) {
+export function useProfile(profileName: string) {
   const { data, error } = useSWR(`https://api.github.com/users/${profileName}`, fetcher);
 
   return {
@@ -26,7 +27,7 @@ export function useProfile(profileName) {
   }
 }
 
-export function useRepo(profileName) {
+export function useRepo(profileName: string) {
   const { data, error } = useSWR(`https://api.github.com/users/${profileName}/repos`, fetcher);
 
   return {
@@ -36,7 +37,7 @@ export function useRepo(profileName) {
   }
 }
 
-export async function getRepoData(key) {
+export async function getRepoData(key: string) {
     const baseUrl = "https://api.github.com/users/";
     var output = null;
     await axios(`${baseUrl}${key}/repos`, {
@@ -54,7 +55,7 @@ export async function getRepoData(key) {
 
 
 // Sorts Array  by stargazers_count ascending
-export function filterRepoData(obj) {
+export function filterRepoData(obj: Repository[]) {
     // const duplicateElement = toFindDuplicates(obj);
     // console.log(duplicateElement);
     let temp = null;

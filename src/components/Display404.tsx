@@ -6,6 +6,7 @@ import {
 } from "@mui/material"
 import WarningIcon from '@mui/icons-material/Warning';
 import styles from "./Display404.module.css";
+import React from "react";
 
 
 // TODO improve this

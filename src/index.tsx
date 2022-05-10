@@ -2,14 +2,14 @@ import React from 'react';
 import * as ReactDOM from "react-dom/client";
 import './index.css';
 import ToggleColorMode from "./App";
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+// import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 const container = document.getElementById("root");
-const root = ReactDOM.createRoot(container);
+const root = ReactDOM.createRoot(container!);
 root.render(
   <React.StrictMode>
     <ToggleColorMode />
   </React.StrictMode>
 );
 
-serviceWorkerRegistration.register();
+// serviceWorkerRegistration.register();

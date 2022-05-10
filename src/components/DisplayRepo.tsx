@@ -1,34 +1,30 @@
-import {
-    Typography,
-    Card,
-    CardActionArea,
-    Container,
-    Avatar
-} from "@mui/material"
+import {Avatar, Card, CardActionArea, Container, Typography} from "@mui/material"
 import styles from "./RepoCard.module.css";
 
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 
-import {useRepo, filterRepoData} from "./Utils";
+import {filterRepoData, useRepo} from "./Utils";
+import React from "react";
+import {Repository} from "../types";
 
-export default function DisplayRepos({profileName}) {
-  const { repos, isLoading, isError } = useRepo(profileName, true);
+export default function DisplayRepos({profileName}: { profileName: string }) {
+    const {repos, isLoading, isError} = useRepo(profileName);
 
 
-  if(isLoading) return "";
-  if(isError) return "";
+    if (isLoading) return <></>;
+    if (isError) return <></>;
 
-  // Filters through repositories by Stargazers then picks the top4
-  let top4 = filterRepoData(repos).slice(-4);
-  top4 = top4.reverse();
+    // Filters through repositories by Stargazers then picks the top4
+    let top4 = filterRepoData(repos).slice(-4);
+    top4 = top4.reverse();
 
-  return top4.map(repo => {return RepoCard(repo)})
+  return <>{ top4.map(repo => {return RepoCard(repo)}) }</>;
 }
 
 
 
-function RepoCard(repo) {
+function RepoCard(repo: Repository) {
     const date = new Date(repo.created_at);
     return(
       <CardActionArea key={repo.id} href={repo.html_url} target="_blank">
