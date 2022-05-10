@@ -11,7 +11,7 @@ import Hero from "./components/Hero";
 import DisplayProfile from './components/DisplayProfile';
 import DisplayRepos from './components/DisplayRepo';
 import {SearchBox} from "./components/SearchBox";
-import {ThemeButton} from "./ThemeButton";
+import {ThemeButton} from "./components/ThemeButton";
 import React from 'react';
 
 export const ColorModeContext = createContext({toggleColorMode: () => {}} );
