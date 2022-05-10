@@ -1,7 +1,7 @@
 import {Container, IconButton, Theme} from "@mui/material";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
-import React, {Context, ContextType, Ref} from "react";
+import React from "react";
 
 //TODO: Type colorMode appropriately
 export function ThemeButton({colorMode, theme}: {colorMode: any, theme: Theme}) {

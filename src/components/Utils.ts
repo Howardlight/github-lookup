@@ -5,7 +5,7 @@ const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export async function getProfileData(key: string) {
     const baseUrl = "https://api.github.com/users/";
-    var output = null;
+    let output = null;
     await axios(`${baseUrl}${key}`, {
       method: "GET",
       headers: {
@@ -39,7 +39,7 @@ export function useRepo(profileName: string) {
 
 export async function getRepoData(key: string) {
     const baseUrl = "https://api.github.com/users/";
-    var output = null;
+    let output = null;
     await axios(`${baseUrl}${key}/repos`, {
         method: "GET",
         headers: {

@@ -2,7 +2,6 @@ import {
     Container,
     Typography,
     Paper,
-    Grid,
 } from "@mui/material"
 import WarningIcon from '@mui/icons-material/Warning';
 import styles from "./Display404.module.css";

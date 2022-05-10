@@ -5,10 +5,7 @@ import {useProfile} from "./Utils";
 import React from "react";
 
 export default function DisplayProfile({profileName}: {profileName: string}) {
-    
     const { profile, isLoading, isError } = useProfile(profileName);
-    // console.log(profileName);
-
 
     if(isLoading) return <CircularProgress />
     if(isError) {
