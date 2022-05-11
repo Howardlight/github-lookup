@@ -1,7 +1,7 @@
 {
   "name": "github-profiles",
   "homepage": "https://howardlight.github.io/github-profiles",
-  "version": "0.1.0",
+  "version": "1.2.7",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.7.1",
