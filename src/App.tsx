@@ -1,6 +1,7 @@
 // React
 import {createContext, SyntheticEvent, useContext, useMemo, useState,} from 'react';
 import './App.css';
+import React from 'react';
 
 //Material UI
 import {Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, useTheme,} from "@mui/material";
@@ -12,11 +13,9 @@ import DisplayProfile from './components/DisplayProfile';
 import DisplayRepos from './components/DisplayRepo';
 import {SearchBox} from "./components/SearchBox";
 import {ThemeButton} from "./components/ThemeButton";
-import React from 'react';
 
 export const ColorModeContext = createContext({toggleColorMode: () => {}} );
 
-//TODO: Port to Typescript
 function App() {
 
     const [searchQuery, setSearchQuery] = useState<string>("google");
