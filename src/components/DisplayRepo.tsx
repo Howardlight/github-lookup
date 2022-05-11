@@ -1,5 +1,7 @@
-import {Avatar, Box, Card, CardActionArea, Container, Typography} from "@mui/material"
+import {Avatar, Box, Card, CardActionArea, Container, Fade, Typography} from "@mui/material"
 import styles from "./RepoCard.module.css";
+
+import { TransitionGroup } from "react-transition-group";
 
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
@@ -19,33 +21,39 @@ export default function DisplayRepos({profileName}: { profileName: string }) {
     let top4 = filterRepoData(repos).slice(-4);
     top4 = top4.reverse();
 
-  return <>{ top4.map(repo => {return RepoCard(repo)}) }</>;
+    return (<TransitionGroup>
+        {top4.map(repo => {
+            return RepoCard(repo)
+        })}
+    </TransitionGroup>);
 }
-
 
 
 function RepoCard(repo: Repository) {
     const date = new Date(repo.created_at);
     return (
-        <Card className={styles.card} sx={{m: 2}}>
-            <CardActionArea key={repo.id} href={repo.html_url} style={{display: "flex", padding: "10xp",}} target="_blank">
-                <Container>
-                    <Typography variant="h6">{repo.name}</Typography>
-                    <Typography className={styles.profileTextInfo}>Open Issues: {repo.open_issues}</Typography>
-                    <Typography className={styles.profileTextInfo}>Is
-                        Licenced: {repo["license"] ? repo["license"].name : "False"}</Typography>
-                    <Typography className={styles.profileTextInfo}>Created at: {date.toDateString()}</Typography>
-                    <Typography className={styles.profileTextInfo}>Language used: {repo.language}</Typography>
+        <Fade key={repo.id}>
+            <Card className={styles.card} sx={{m: 2, width: 500}}>
+                <CardActionArea href={repo.html_url} style={{display: "flex", padding: "10xp",}}
+                                target="_blank">
+                    <Container>
+                        <Typography variant="h6">{repo.name}</Typography>
+                        <Typography className={styles.profileTextInfo}>Open Issues: {repo.open_issues}</Typography>
+                        <Typography className={styles.profileTextInfo}>Is
+                            Licenced: {repo["license"] ? repo["license"].name : "False"}</Typography>
+                        <Typography className={styles.profileTextInfo}>Created at: {date.toDateString()}</Typography>
+                        <Typography className={styles.profileTextInfo}>Language used: {repo.language}</Typography>
 
-                    <Box className={styles.secondaryContainer} sx={{mt: 1, mb: 1}}>
-                        <Typography className={styles.iconStats}><StarIcon/>{repo.stargazers_count}</Typography>
-                        <Typography className={styles.iconStats}><ForkRightIcon/>{repo.forks}</Typography>
-                    </Box>
+                        <Box className={styles.secondaryContainer} sx={{mt: 1, mb: 1}}>
+                            <Typography className={styles.iconStats}><StarIcon/>{repo.stargazers_count}</Typography>
+                            <Typography className={styles.iconStats}><ForkRightIcon/>{repo.forks}</Typography>
+                        </Box>
 
-                </Container>
-                <Avatar variant="rounded" alt={"Repository IMG"}
-                        sx={{width: 128, height: 128, m: 2}}>{repo.name[0]}</Avatar>
-            </CardActionArea>
-        </Card>
+                    </Container>
+                    <Avatar variant="rounded" alt={"Repository IMG"}
+                            sx={{width: 128, height: 128, m: 2}}>{repo.name[0]}</Avatar>
+                </CardActionArea>
+            </Card>
+        </Fade>
     );
-  }
+}
