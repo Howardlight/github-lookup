@@ -1,4 +1,4 @@
-import {Avatar, Card, CardActionArea, Container, Typography} from "@mui/material"
+import {Avatar, Box, Card, CardActionArea, Container, Typography} from "@mui/material"
 import styles from "./RepoCard.module.css";
 
 import StarIcon from '@mui/icons-material/Star';
@@ -26,23 +26,26 @@ export default function DisplayRepos({profileName}: { profileName: string }) {
 
 function RepoCard(repo: Repository) {
     const date = new Date(repo.created_at);
-    return(
-      <CardActionArea key={repo.id} href={repo.html_url} target="_blank">
-        <Card className={styles.card}>
-          <Container className={styles.mainContainer}>
-            <Typography variant="h6">{repo.name}</Typography>
-            <Typography className={styles.profileTextInfo}>Open Issues: {repo.open_issues}</Typography>
-            <Typography className={styles.profileTextInfo}>Is Licenced: {repo["license"] ? repo["license"].name : "False"}</Typography>
-            <Typography className={styles.profileTextInfo}>Created at: {date.toDateString()}</Typography>
-            <Typography className={styles.profileTextInfo}>Language used: {repo.language}</Typography>
+    return (
+        <Card className={styles.card} sx={{m: 2}}>
+            <CardActionArea key={repo.id} href={repo.html_url} style={{display: "flex", padding: "10xp",}} target="_blank">
+                <Container>
+                    <Typography variant="h6">{repo.name}</Typography>
+                    <Typography className={styles.profileTextInfo}>Open Issues: {repo.open_issues}</Typography>
+                    <Typography className={styles.profileTextInfo}>Is
+                        Licenced: {repo["license"] ? repo["license"].name : "False"}</Typography>
+                    <Typography className={styles.profileTextInfo}>Created at: {date.toDateString()}</Typography>
+                    <Typography className={styles.profileTextInfo}>Language used: {repo.language}</Typography>
 
-            <Container className={styles.secondaryContainer}>
-              <Typography className={styles.iconStats}><StarIcon />{repo.stargazers_count}</Typography>
-              <Typography className={styles.iconStats}><ForkRightIcon />{repo.forks}</Typography>
-            </Container>
-          </Container>
-          <Avatar variant="rounded" alt={"Profile IMG"} sx={{ width: 128, height: 128}}>{repo.name[0]}</Avatar>
+                    <Box className={styles.secondaryContainer} sx={{mt: 1, mb: 1}}>
+                        <Typography className={styles.iconStats}><StarIcon/>{repo.stargazers_count}</Typography>
+                        <Typography className={styles.iconStats}><ForkRightIcon/>{repo.forks}</Typography>
+                    </Box>
+
+                </Container>
+                <Avatar variant="rounded" alt={"Repository IMG"}
+                        sx={{width: 128, height: 128, m: 2}}>{repo.name[0]}</Avatar>
+            </CardActionArea>
         </Card>
-      </CardActionArea>
     );
   }
