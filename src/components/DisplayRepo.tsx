@@ -10,8 +10,11 @@ import {filterRepoData, useRepo} from "./Utils";
 import React from "react";
 import {Repository} from "../types";
 
+import {useMediaQuery} from "react-responsive";
+
 export default function DisplayRepos({profileName}: { profileName: string }) {
     const {repos, isLoading, isError} = useRepo(profileName);
+    const isMobile = useMediaQuery({ minWidth: 767});
 
 
     if (isLoading) return <></>;
@@ -21,20 +24,22 @@ export default function DisplayRepos({profileName}: { profileName: string }) {
     let top4 = filterRepoData(repos).slice(-4);
     top4 = top4.reverse();
 
+
     return (<TransitionGroup>
         {top4.map(repo => {
-            return RepoCard(repo)
+            return RepoCard(repo, isMobile)
         })}
     </TransitionGroup>);
 }
 
 
-function RepoCard(repo: Repository) {
+function RepoCard(repo: Repository, isMobile: boolean) {
     const date = new Date(repo.created_at);
+
     return (
         <Fade key={repo.id}>
-            <Card className={styles.card} sx={{m: 2, width: 500}}>
-                <CardActionArea href={repo.html_url} style={{display: "flex", padding: "10xp",}}
+            <Card className={styles.card} sx={{m: 2, maxWidth: 500}}>
+                <CardActionArea href={repo.html_url} style={{display: "flex", padding: "10xp", flexDirection: isMobile ?  "row" : "column-reverse"}}
                                 target="_blank">
                     <Container>
                         <Typography variant="h6">{repo.name}</Typography>
