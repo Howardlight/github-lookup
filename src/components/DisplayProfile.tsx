@@ -9,7 +9,12 @@ export default function DisplayProfile({profileName}: {profileName: string}) {
 
     if(isLoading) return <CircularProgress />
     if(isError) {
-        console.log(isError)
+        
+        if(isError.response?.status == 404) return (<>
+            <Typography variant="h5" color="red">This Profile Does not exist!</Typography>
+            <Typography variant="subtitle1">Please try another profile</Typography>
+        </>)
+
         return (<div>Error Occurred</div>);
     }
     
