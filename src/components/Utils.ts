@@ -1,5 +1,5 @@
-import axios from "axios";
-import useSWR from "swr";
+import axios, { AxiosError } from "axios";
+import useSWR, { SWRResponse } from "swr";
 import {Repository} from "../types";
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
@@ -18,7 +18,14 @@ export async function getProfileData(key: string) {
 }
 
 export function useProfile(profileName: string) {
-  const { data, error } = useSWR(`https://api.github.com/users/${profileName}`, fetcher);
+  const { data, error }: SWRResponse<any, AxiosError> = useSWR(`https://api.github.com/users/${profileName}`, fetcher, {
+    onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
+
+      // Stops retrying if error is 404
+      if (error.response!.status === 404) return
+
+    }
+  });
 
   return {
     profile: data,
@@ -28,7 +35,14 @@ export function useProfile(profileName: string) {
 }
 
 export function useRepo(profileName: string) {
-  const { data, error } = useSWR(`https://api.github.com/users/${profileName}/repos`, fetcher);
+  const { data, error }: SWRResponse<any, AxiosError> = useSWR(`https://api.github.com/users/${profileName}/repos`, fetcher, {
+    onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
+
+      // Stops retrying if error is 404
+      if (error.response!.status === 404) return
+
+    }
+  });
 
   return {
     repos: data,
