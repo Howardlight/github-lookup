@@ -19,12 +19,13 @@ export async function getProfileData(key: string) {
 
 export function useProfile(profileName: string) {
   const { data, error }: SWRResponse<any, AxiosError> = useSWR(`https://api.github.com/users/${profileName}`, fetcher, {
-    onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
+    // onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
 
-      // Stops retrying if error is 404
-      if (error.response!.status === 404) return
+    //   // Stops retrying if error is 404
+    //   if (error.response!.status === 404) return
 
-    }
+    // },
+    shouldRetryOnError: false
   });
 
   return {
@@ -36,12 +37,13 @@ export function useProfile(profileName: string) {
 
 export function useRepo(profileName: string) {
   const { data, error }: SWRResponse<any, AxiosError> = useSWR(`https://api.github.com/users/${profileName}/repos`, fetcher, {
-    onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
+    // onErrorRetry: (error, key, config, revalidate, {retryCount}) => {
 
-      // Stops retrying if error is 404
-      if (error.response!.status === 404) return
+    //   // Stops retrying if error is 404
+    //   if (error.response!.status === 404) return
 
-    }
+    // },
+      shouldRetryOnError: false
   });
 
   return {
