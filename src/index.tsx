@@ -11,5 +11,3 @@ root.render(
     <ToggleColorMode />
   </React.StrictMode>
 );
-
-// serviceWorkerRegistration.register();

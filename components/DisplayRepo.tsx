@@ -1,4 +1,4 @@
-import {Avatar, Box, Card, CardActionArea, Container, Fade, Typography} from "@mui/material"
+import { Avatar, Box, Card, CardActionArea, Container, Fade, Typography } from "@mui/material"
 import styles from "./RepoCard.module.css";
 
 import { TransitionGroup } from "react-transition-group";
@@ -6,15 +6,15 @@ import { TransitionGroup } from "react-transition-group";
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 
-import {filterRepoData, useRepo} from "./Utils";
+import { filterRepoData, useRepo } from "./Utils";
 import React from "react";
-import {Repository} from "../types";
+import { Repository } from "../types";
 
-import {useMediaQuery} from "react-responsive";
+import { useMediaQuery } from "react-responsive";
 
-export default function DisplayRepos({profileName}: { profileName: string }) {
-    const {repos, isLoading, isError} = useRepo(profileName);
-    const isMobile = useMediaQuery({ minWidth: 767});
+export default function DisplayRepos({ profileName }: { profileName: string }) {
+    const { repos, isLoading, isError } = useRepo(profileName);
+    const isMobile = useMediaQuery({ minWidth: 767 });
 
 
     if (isLoading) return <></>;
@@ -38,9 +38,9 @@ function RepoCard(repo: Repository, isMobile: boolean) {
 
     return (
         <Fade key={repo.id}>
-            <Card className={styles.card} sx={{m: 2, maxWidth: 500}}>
-                <CardActionArea href={repo.html_url} style={{display: "flex", padding: "10xp", flexDirection: isMobile ?  "row" : "column-reverse"}}
-                                target="_blank">
+            <Card className={styles.card} sx={{ m: 2, maxWidth: 500 }}>
+                <CardActionArea href={repo.html_url} style={{ display: "flex", padding: "10xp", flexDirection: isMobile ? "row" : "column-reverse" }}
+                    target="_blank">
                     <Container>
                         <Typography variant="h6">{repo.name}</Typography>
                         <Typography className={styles.profileTextInfo}>Open Issues: {repo.open_issues}</Typography>
@@ -49,14 +49,14 @@ function RepoCard(repo: Repository, isMobile: boolean) {
                         <Typography className={styles.profileTextInfo}>Created at: {date.toDateString()}</Typography>
                         <Typography className={styles.profileTextInfo}>Language used: {repo.language}</Typography>
 
-                        <Box className={styles.secondaryContainer} sx={{mt: 1, mb: 1}}>
-                            <Typography className={styles.iconStats}><StarIcon/>{repo.stargazers_count}</Typography>
-                            <Typography className={styles.iconStats}><ForkRightIcon/>{repo.forks}</Typography>
+                        <Box className={styles.secondaryContainer} sx={{ mt: 1, mb: 1 }}>
+                            <Typography className={styles.iconStats}><StarIcon />{repo.stargazers_count}</Typography>
+                            <Typography className={styles.iconStats}><ForkRightIcon />{repo.forks}</Typography>
                         </Box>
 
                     </Container>
                     <Avatar variant="rounded" alt={"Repository IMG"}
-                            sx={{width: 128, height: 128, m: 2}}>{repo.name[0]}</Avatar>
+                        sx={{ width: 128, height: 128, m: 2 }}>{repo.name[0]}</Avatar>
                 </CardActionArea>
             </Card>
         </Fade>

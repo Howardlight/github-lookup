@@ -1,20 +1,20 @@
 import axios, { AxiosError } from "axios";
 import useSWR, { SWRResponse } from "swr";
-import {Repository} from "../types";
+import { Repository } from "../types";
 const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export async function getProfileData(key: string) {
-    const baseUrl = "https://api.github.com/users/";
-    let output = null;
-    await axios(`${baseUrl}${key}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+  const baseUrl = "https://api.github.com/users/";
+  let output = null;
+  await axios(`${baseUrl}${key}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
     .then(response => output = response.data)
-    .catch(err => {console.log(err)})
-    return output;
+    .catch(err => { console.log(err) })
+  return output;
 }
 
 export function useProfile(profileName: string) {
@@ -43,7 +43,7 @@ export function useRepo(profileName: string) {
     //   if (error.response!.status === 404) return
 
     // },
-      shouldRetryOnError: false
+    shouldRetryOnError: false
   });
 
   return {
@@ -54,37 +54,37 @@ export function useRepo(profileName: string) {
 }
 
 export async function getRepoData(key: string) {
-    const baseUrl = "https://api.github.com/users/";
-    let output = null;
-    await axios(`${baseUrl}${key}/repos`, {
-        method: "GET",
-        headers: {
-        "Content-Type": "application/json"
-        }
-    })
+  const baseUrl = "https://api.github.com/users/";
+  let output = null;
+  await axios(`${baseUrl}${key}/repos`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
     .then(response => {
-        output = filterRepoData(response.data);
+      output = filterRepoData(response.data);
     })
-    .catch(err => {console.log(err);})
-    return output;
+    .catch(err => { console.log(err); })
+  return output;
 }
 
 
 // Sorts Array  by stargazers_count ascending
 export function filterRepoData(obj: Repository[]) {
-    // const duplicateElement = toFindDuplicates(obj);
-    // console.log(duplicateElement);
-    let temp = null;
-    for(let i = 0; i < obj.length; i++){
-      for(let j = i+1; j < obj.length; j++){
-        if(obj[j].stargazers_count < obj[i].stargazers_count){
-          temp = obj[i];
-          obj[i] = obj[j];
-          obj[j] = temp;
-        }
+  // const duplicateElement = toFindDuplicates(obj);
+  // console.log(duplicateElement);
+  let temp = null;
+  for (let i = 0; i < obj.length; i++) {
+    for (let j = i + 1; j < obj.length; j++) {
+      if (obj[j].stargazers_count < obj[i].stargazers_count) {
+        temp = obj[i];
+        obj[i] = obj[j];
+        obj[j] = temp;
       }
     }
-    return obj;
+  }
+  return obj;
 }
 
 // CAN BE USED FOR LATER

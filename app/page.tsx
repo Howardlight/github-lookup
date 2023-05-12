@@ -1,23 +1,17 @@
-// React
-import { createContext, SyntheticEvent, useContext, useMemo, useState, } from 'react';
-import './App.css';
-import React from 'react';
-
-//Material UI
-import { Box, createTheme, CssBaseline, PaletteMode, ThemeProvider, useTheme, } from "@mui/material";
-
-// Components
-import Footer from "../components/Footer";
+"use client";
+import { Box, useTheme } from "@mui/material";
+import React, { SyntheticEvent, createContext, useContext, useState } from "react";
 import Hero from "../components/Hero";
-import DisplayProfile from '../components/DisplayProfile';
-import DisplayRepos from '../components/DisplayRepo';
+import DisplayProfile from "../components/DisplayProfile";
 import { SearchBox } from "../components/SearchBox";
 import { ThemeButton } from "../components/ThemeButton";
+import DisplayRepos from "../components/DisplayRepo";
+import Footer from "../components/Footer";
+import "../styles/App.css";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => { } });
 
-function App() {
-
+export default function Page() {
     const [searchQuery, setSearchQuery] = useState<string>("google");
     const [displayError, setDisplayError] = useState<boolean>(false);
 
@@ -56,36 +50,3 @@ function App() {
         </Box>
     );
 }
-
-function ToggleColorMode() {
-    const [mode, setMode] = useState<PaletteMode>('light');
-    const colorMode = useMemo(
-        () => ({
-            toggleColorMode: () => {
-                setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
-            },
-        }),
-        [],
-    );
-
-    const theme = useMemo(
-        () =>
-            createTheme({
-                palette: {
-                    mode,
-                },
-            }),
-        [mode],
-    );
-
-    return (
-        <ColorModeContext.Provider value={colorMode}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                <App />
-            </ThemeProvider>
-        </ColorModeContext.Provider>
-    );
-}
-
-export default ToggleColorMode;
