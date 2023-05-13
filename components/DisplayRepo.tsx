@@ -1,8 +1,6 @@
 import { Avatar, Box, Card, CardActionArea, Container, Fade, Typography } from "@mui/material"
 import styles from "./RepoCard.module.css";
 
-import { TransitionGroup } from "react-transition-group";
-
 import StarIcon from '@mui/icons-material/Star';
 import ForkRightIcon from '@mui/icons-material/ForkRight';
 
@@ -25,11 +23,10 @@ export default function DisplayRepos({ profileName }: { profileName: string }) {
     top4 = top4.reverse();
 
 
-    return (<TransitionGroup>
-        {top4.map(repo => {
-            return RepoCard(repo, isMobile)
-        })}
-    </TransitionGroup>);
+    return (top4.map(repo => {
+        return RepoCard(repo, isMobile)
+    })
+    );
 }
 
 

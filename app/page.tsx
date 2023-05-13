@@ -1,6 +1,6 @@
 "use client";
 import { Box, useTheme } from "@mui/material";
-import React, { SyntheticEvent, createContext, useContext, useState } from "react";
+import React, { SyntheticEvent, createContext, useContext, useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import DisplayProfile from "../components/DisplayProfile";
 import { SearchBox } from "../components/SearchBox";
@@ -14,6 +14,9 @@ export const ColorModeContext = createContext({ toggleColorMode: () => { } });
 export default function Page() {
     const [searchQuery, setSearchQuery] = useState<string>("google");
     const [displayError, setDisplayError] = useState<boolean>(false);
+
+
+    onQueryChange(searchQuery);
 
     // FORM FUNCTIONS
     const handleOnSubmit = async (event: SyntheticEvent) => {
@@ -30,23 +33,24 @@ export default function Page() {
         setSearchQuery(input);
     }
 
-    //TODO: Add animations
-    // USE FRAMER MOTIONS
-    const theme = useTheme();
-    const colorMode = useContext(ColorModeContext);
     return (
-        <Box style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+        <div className="flex-col justify-center items-center">
 
-            <Hero />
+            {/* <Hero /> */}
 
-            <ThemeButton colorMode={colorMode} theme={theme} />
+            {/* <ThemeButton colorMode={colorMode} theme={theme} /> */}
 
             <SearchBox displayError={displayError} setDisplayError={setDisplayError} handleOnSubmit={handleOnSubmit} />
 
-            <DisplayProfile profileName={searchQuery} />
-            <DisplayRepos profileName={searchQuery} />
-
+            {/* <DisplayProfile profileName={searchQuery} />
+            <DisplayRepos profileName={searchQuery} /> */}
             <Footer />
-        </Box>
+        </div>
     );
+}
+
+function onQueryChange(query: string) {
+    useEffect(() => {
+
+    }, [query])
 }
