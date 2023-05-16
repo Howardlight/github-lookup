@@ -1,8 +1,8 @@
-import React, { createContext } from "react";
+import React from "react";
 import { SearchBox } from "../components/SearchBox";
 import Image from "next/image";
 import GithubSVG from "./../public/github.svg";
-import { Profile } from "@/components/DisplayProfile";
+import { Profile } from "@/components/Profile";
 
 export default function Home() {
 
