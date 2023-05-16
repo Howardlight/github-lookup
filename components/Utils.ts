@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import useSWR, { SWRResponse } from "swr";
 import { Repository } from "../types";
-const fetcher = (url: string) => axios.get(url).then(res => res.data);
+export const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export async function getProfileData(key: string) {
   const baseUrl = "https://api.github.com/users/";
