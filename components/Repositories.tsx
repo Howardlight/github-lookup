@@ -7,8 +7,7 @@ import useSWR, { SWRResponse } from "swr";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
-    const profileLogin = useProfileStore((state) => state.profile?.login);
-
+    const profile = useProfileStore((state) => state.profile);
 
     //TODO: Maybe add options for sorting
     //TODO: Add Icons for stuff like Forks and StarGazers
@@ -16,11 +15,11 @@ export default function Repositories() {
 
     //TODO: Handle case when no Repos are found
     //TODO: Handle case when user reaches end of Repositories
-    if (profileLogin == undefined) return <Fragment />;
-    else if (profileLogin == null) return <p>Error Occured</p>;
+    if (profile == undefined) return <Fragment />;
+    else if (profile == null) return <p>Error Occured</p>;
     return (
         <div>
-            <RepositoryComponent profileLogin={profileLogin} pageIndex={pageIndex} />
+            <RepositoryComponent profileLogin={profile.login} pageIndex={pageIndex} />
             <PageController pageIndex={pageIndex} setPageIndex={setPageIndex} />
         </div>
     )

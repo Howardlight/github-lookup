@@ -44,8 +44,7 @@ function useOnQueryChange() {
             const profileData = await getProfileData(query);
             console.log(`[useOnQueryChange] data: `, profileData);
 
-            if (profileData !== undefined) setProfile(profileData);
-            else setProfile(null);
+            setProfile(profileData);
         })()
     }, [query]);
 }
