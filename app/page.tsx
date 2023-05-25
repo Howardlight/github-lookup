@@ -3,6 +3,7 @@ import { Search } from "../components/Search";
 import Image from "next/image";
 import GithubSVG from "./../public/github.svg";
 import { Profile } from "@/components/Profile";
+import Repositories from "@/components/Repositories";
 
 export default function Home() {
 
@@ -15,17 +16,14 @@ export default function Home() {
           alt="Github logo"
           color="black"
         />
-        <h2>Github Profiles</h2>
+        <h2>Github Lookup</h2>
       </div>
 
-      {/* <Hero /> */}
-
-      {/* <ThemeButton colorMode={colorMode} theme={theme} /> */}
       <Search />
 
       <Profile />
-      {/* <DisplayProfile profileName={searchQuery} />
-            <DisplayRepos profileName={searchQuery} /> */}
+      <Repositories />
+
 
       {/* <div className="w-[100vw] left-0 bottom-0">
         <div className="justify-self-end flex flex-row gap-1 justify-center pt-5 font-thin">
