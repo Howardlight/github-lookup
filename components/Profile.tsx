@@ -5,7 +5,7 @@ import { useQueryStore } from "@/zustand/QueryStore";
 import useSWR, { SWRResponse } from "swr";
 import { AxiosError } from "axios";
 import { GithubProfile } from "@/types";
-
+import Image from "next/image";
 
 
 export function Profile() {
@@ -18,17 +18,28 @@ export function Profile() {
 function ProfileComponent({ query }: { query: string }) {
     const { data, error }: SWRResponse<GithubProfile | undefined, AxiosError> = useSWR(`https://api.github.com/users/${query}`, fetcher, { shouldRetryOnError: false });
 
+    //TODO: Create a Bio Area
+    //TODO: Add More Properties
+    //TODO: Add Better Loading
 
     if (!data && !error) return <p>Loading...</p>;
     if (error || data == undefined) return <p>Error Occured</p>
     const date = new Date(data.created_at);
     return (
-        <div>
-            <p>Profile Name: {data.login}</p>
-            <p>User Name: {data.name}</p>
-            <p>Created at: {data.created_at === undefined ? "" : date.toDateString()}</p>
-            <p>Follower: {data.followers}</p>
-            <p>Public Repository Count: {data.public_repos}</p>
+        <div className="flex flex-row gap-1 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
+            <Image
+                src={data.avatar_url}
+                alt={"Avatar Image"}
+                width={125}
+                height={125}
+                className="rounded-md shadow-sm"
+            />
+            <div>
+                <p className="text-xl font-bold">{data.name ? data.name : data.login}</p>
+                <p className="text-sm">Created at: {data.created_at === undefined ? "" : date.toDateString()}</p>
+                <p className="text-sm">Follower: {data.followers}</p>
+                <p className="text-sm">Public Repo Count: {data.public_repos}</p>
+            </div>
         </div>
     )
 }
