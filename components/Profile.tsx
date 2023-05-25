@@ -26,7 +26,7 @@ function ProfileComponent({ query }: { query: string }) {
     if (error || data == undefined) return <p>Error Occured</p>
     const date = new Date(data.created_at);
     return (
-        <div className="flex flex-row gap-1 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
+        <div className="flex flex-row gap-2 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
             <Image
                 src={data.avatar_url}
                 alt={"Avatar Image"}
