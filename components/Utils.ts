@@ -1,20 +1,27 @@
 import axios, { AxiosError } from "axios";
 import useSWR, { SWRResponse } from "swr";
-import { Repository } from "../types";
+import { GithubProfile, Repository } from "../types";
 export const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-export async function getProfileData(key: string) {
+export async function getProfileData(key: string): Promise<GithubProfile | undefined> {
   const baseUrl = "https://api.github.com/users/";
-  let output = null;
-  await axios(`${baseUrl}${key}`, {
+  if (key === "") return undefined;
+
+  const req = await axios(`${baseUrl}${key}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
     }
   })
-    .then(response => output = response.data)
-    .catch(err => { console.log(err) })
-  return output;
+
+  if (req.status != 200) {
+    console.error(`[getProfileData][ERROR] Req Status is not valid! status: ${req.status}`);
+    return undefined;
+  }
+
+  const data: GithubProfile = req.data;
+
+  return data;
 }
 
 export function useProfile(profileName: string) {
@@ -53,50 +60,30 @@ export function useRepo(profileName: string) {
   }
 }
 
-export async function getRepoData(key: string) {
+export async function getRepoData(profileName: string) {
   const baseUrl = "https://api.github.com/users/";
-  let output = null;
-  await axios(`${baseUrl}${key}/repos`, {
+
+  if (profileName.trim() === "") return undefined;
+
+  const req = await axios(`${baseUrl}${profileName}/repos`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json"
     }
   })
-    .then(response => {
-      output = filterRepoData(response.data);
-    })
-    .catch(err => { console.log(err); })
-  return output;
-}
 
-
-// Sorts Array  by stargazers_count ascending
-export function filterRepoData(obj: Repository[]) {
-  // const duplicateElement = toFindDuplicates(obj);
-  // console.log(duplicateElement);
-  let temp = null;
-  for (let i = 0; i < obj.length; i++) {
-    for (let j = i + 1; j < obj.length; j++) {
-      if (obj[j].stargazers_count < obj[i].stargazers_count) {
-        temp = obj[i];
-        obj[i] = obj[j];
-        obj[j] = temp;
-      }
-    }
+  if (req.status != 200) {
+    console.error(`[getRepoData][ERROR] Req Status is not valid! status: ${req.status} \n${req.statusText}`);
+    return undefined;
   }
-  return obj;
+
+  const data = req.data;
+
+  return data;
 }
 
-// CAN BE USED FOR LATER
-// function toFindDuplicates(arry) {
-//   const uniqueElements = new Set(arry);
-//   const filteredElements = arry.filter(item => {
-//       if (uniqueElements.has(item.id)) {
-//           uniqueElements.delete(item);
-//       } else {
-//           return item;
-//       }
-//   });
+export function sortReposByStar(repos: Repository[]) {
+  const output = [...repos];
 
-//   return [...new Set(uniqueElements)]
-// }
+  return output.sort((repo1, repo2) => repo1.stargazers_count < repo2.stargazers_count ? 1 : -1);
+}
