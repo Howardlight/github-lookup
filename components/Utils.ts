@@ -3,25 +3,30 @@ import useSWR, { SWRResponse } from "swr";
 import { GithubProfile, Repository } from "../types";
 export const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
-export async function getProfileData(key: string): Promise<GithubProfile | undefined> {
-  const baseUrl = "https://api.github.com/users/";
-  if (key === "") return undefined;
+export async function getProfileData(key: string): Promise<GithubProfile | undefined | null> {
+  try {
+    const baseUrl = "https://api.github.com/users/";
+    if (key === "") return undefined;
 
-  const req = await axios(`${baseUrl}${key}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
+    const req = await axios(`${baseUrl}${key}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+
+    if (req.status != 200) {
+      console.error(`[getProfileData][ERROR] Req Status is not valid! status: ${req.status}`);
+      return null;
     }
-  })
 
-  if (req.status != 200) {
-    console.error(`[getProfileData][ERROR] Req Status is not valid! status: ${req.status}`);
-    return undefined;
+    const data: GithubProfile = req.data;
+
+    return data;
+  } catch (e) {
+    console.error(`[getProfileData][ERROR] Could not fetch profile data!\nError: `, e);
+    return null;
   }
-
-  const data: GithubProfile = req.data;
-
-  return data;
 }
 
 export function useProfile(profileName: string) {
