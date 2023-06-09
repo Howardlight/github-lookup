@@ -75,7 +75,7 @@ function PageController({ pageIndex, setPageIndex, publicRepoNumber, showControl
         <div className="flex flex-row items-center justify-center gap-4 pb-5">
             <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
             <p className="border border-gray-200 shadow-sm p-2 px-4 text-xl font-semibold">{pageIndex}</p>
-            <button disabled={pageIndex + 1 * 30 > publicRepoNumber ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+            <button disabled={publicRepoNumber - (pageIndex * 30) <= 0 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
         </div>
     )
 }
