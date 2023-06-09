@@ -1,13 +1,18 @@
 "use client";
 import { Repository } from "@/types";
 import { useProfileStore } from "@/zustand/ProfileStore";
-import React, { Dispatch, Fragment, SetStateAction, useState } from "react";
+import React, { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { fetcher } from "./Utils";
 import useSWR, { SWRResponse } from "swr";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
     const profile = useProfileStore((state) => state.profile);
+
+
+    useEffect(() => {
+        setPageIndex(1);
+    }, [profile])
 
     //TODO: Maybe add options for sorting
     //TODO: Add Icons for stuff like Forks and StarGazers
