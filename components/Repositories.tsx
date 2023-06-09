@@ -1,14 +1,14 @@
 "use client";
 import { Repository } from "@/types";
 import { useProfileStore } from "@/zustand/ProfileStore";
-import React, { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from "react";
 import { fetcher } from "./Utils";
 import useSWR, { SWRResponse } from "swr";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
     const profile = useProfileStore((state) => state.profile);
-
+    const [showController, setShowController] = useState(true); //TODO: make this implementation more efficient
 
     useEffect(() => {
         setPageIndex(1);
@@ -23,22 +23,30 @@ export default function Repositories() {
     else if (profile == null) return <p>Error Occured</p>;
     return (
         <div>
-            <RepositoryComponent profileLogin={profile.login} pageIndex={pageIndex} />
-            <PageController pageIndex={pageIndex} setPageIndex={setPageIndex} publicRepoNumber={profile.public_repos} />
+            <RepositoryComponent profileLogin={profile.login} pageIndex={pageIndex} setShowController={setShowController} />
+            <PageController pageIndex={pageIndex} setPageIndex={setPageIndex} publicRepoNumber={profile.public_repos} showController={showController} />
         </div>
     )
 }
 
 
-function RepositoryComponent({ profileLogin, pageIndex }: { profileLogin: string, pageIndex: number }) {
+function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { profileLogin: string, pageIndex: number, setShowController: Dispatch<SetStateAction<boolean>> }) {
     const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher, { shouldRetryOnError: false });
 
 
     //TODO: Add Skeleton
     //TODO: Add Error Component
 
-    if (!data && !error) return <p>Loading...</p>;
-    if (error) return <p>Error Occured</p>;
+    if (!data && !error) {
+        setShowController(false);
+        return <p>Loading...</p>;
+    }
+    if (error) {
+        setShowController(false);
+        return <p>Error Occured</p>;
+    }
+
+    setShowController(true);
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
             {data && data.length > 0 ?
@@ -57,14 +65,15 @@ function NoRepos() {
     );
 }
 
-function PageController({ pageIndex, setPageIndex, publicRepoNumber }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>>, publicRepoNumber: number }) {
+function PageController({ pageIndex, setPageIndex, publicRepoNumber, showController }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>>, publicRepoNumber: number, showController: boolean }) {
     //TODO: Improve Styling
 
+    if (!showController) return <Fragment />;
     return (
         <div className="flex flex-row items-center justify-center gap-4 pb-5">
-            <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
-            <p className="text-xl font-semibold">{pageIndex}</p>
-            <button disabled={pageIndex + 1 * 30 > publicRepoNumber ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+            <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
+            <p className="border border-gray-200 shadow-sm p-2 px-4 text-xl font-semibold">{pageIndex}</p>
+            <button disabled={pageIndex + 1 * 30 > publicRepoNumber ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
         </div>
     )
 }
