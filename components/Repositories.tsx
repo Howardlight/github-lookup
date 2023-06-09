@@ -18,21 +18,20 @@ export default function Repositories() {
     //TODO: Add Icons for stuff like Forks and StarGazers
     //TODO: Maybe add the ability to see the README?
 
-    //TODO: Handle case when no Repos are found
     //TODO: Handle case when user reaches end of Repositories
     if (profile == undefined) return <Fragment />;
     else if (profile == null) return <p>Error Occured</p>;
     return (
         <div>
             <RepositoryComponent profileLogin={profile.login} pageIndex={pageIndex} />
-            <PageController pageIndex={pageIndex} setPageIndex={setPageIndex} />
+            <PageController pageIndex={pageIndex} setPageIndex={setPageIndex} publicRepoNumber={profile.public_repos} />
         </div>
     )
 }
 
 
 function RepositoryComponent({ profileLogin, pageIndex }: { profileLogin: string, pageIndex: number }) {
-    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher);
+    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher, { shouldRetryOnError: false });
 
 
     //TODO: Add Skeleton
@@ -42,19 +41,30 @@ function RepositoryComponent({ profileLogin, pageIndex }: { profileLogin: string
     if (error) return <p>Error Occured</p>;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
-            {data!.map((repo) => <RepositoryCard data={repo} key={repo.id} />)}
+            {data && data.length > 0 ?
+                data!.map((repo) => <RepositoryCard data={repo} key={repo.id} />)
+                : <NoRepos />}
         </div>
     )
 }
 
-function PageController({ pageIndex, setPageIndex }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>> }) {
+
+function NoRepos() {
+    return (
+        <div className="flex justify-center m-5">
+            <p className="font-semibold">No Repositories found</p>
+        </div>
+    );
+}
+
+function PageController({ pageIndex, setPageIndex, publicRepoNumber }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>>, publicRepoNumber: number }) {
     //TODO: Improve Styling
 
     return (
         <div className="flex flex-row items-center justify-center gap-4 pb-5">
             <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
             <p className="text-xl font-semibold">{pageIndex}</p>
-            <button className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+            <button disabled={pageIndex + 1 * 30 > publicRepoNumber ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
         </div>
     )
 }
