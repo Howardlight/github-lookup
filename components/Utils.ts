@@ -11,7 +11,8 @@ export async function getProfileData(key: string): Promise<GithubProfile | undef
     const req = await axios(`${baseUrl}${key}`, {
       method: "GET",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Accept": "application/vnd.github+json"
       }
     })
 
@@ -73,7 +74,8 @@ export async function getRepoData(profileName: string) {
   const req = await axios(`${baseUrl}${profileName}/repos`, {
     method: "GET",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Accept": "application/vnd.github+json"
     }
   })
 
