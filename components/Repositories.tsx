@@ -8,7 +8,7 @@ import useSWR, { SWRResponse } from "swr";
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
     const profile = useProfileStore((state) => state.profile);
-    const [showController, setShowController] = useState(true); //TODO: make this implementation more efficient
+    const [showController, setShowController] = useState(false);
 
     useEffect(() => {
         setPageIndex(1);
@@ -37,16 +37,18 @@ function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { p
     //TODO: Add Skeleton
     //TODO: Add Error Component
 
-    if (!data && !error) {
-        setShowController(false);
-        return <p>Loading...</p>;
-    }
-    if (error) {
-        setShowController(false);
-        return <p>Error Occured</p>;
-    }
+    useEffect(() => {
 
-    setShowController(true);
+        if ((!data && !error) || error || (data && data.length < 1)) setShowController(false);
+        else setShowController(true);
+
+
+        // If componenent unrenders, remove the controllers
+        return () => setShowController(false);
+    }, [data, error, setShowController])
+
+    if (!data && !error) return <p>Loading...</p>;
+    if (error) return <p>Error Occured</p>;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
             {data && data.length > 0 ?
