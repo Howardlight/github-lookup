@@ -4,6 +4,12 @@ import { useProfileStore } from "@/zustand/ProfileStore";
 import React, { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from "react";
 import { fetcher } from "./Utils";
 import useSWR, { SWRResponse } from "swr";
+import Image from "next/image";
+
+import StarSVG from "@/public/star.svg";
+import Fork from "@/public/git-fork.svg";
+import Eye from "@/public/eye.svg";
+import Link from "next/link";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
@@ -85,7 +91,42 @@ function RepositoryCard({ data }: { data: Repository }) {
     return (
         <div className="rounded-sm shadow-sm p-2">
             <p className="font-semibold">{data.name}</p>
-            <p>{data.stargazers_count}</p>
+            <p className="mt-2 mb-8">{data.description ? data.description : "No Description"}</p>
+            <div className="flex flex-row justify-between">
+                <div>
+                    <Link href={data.html_url}>
+                        <button className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm pt-1 pb-1 pr-2 pl-2">
+                            Visit
+                        </button>
+                    </Link>
+                </div>
+                <div className="flex flex-row gap-3">
+                    <div className="flex flex-row items-center gap-1">
+                        <Image
+                            src={StarSVG}
+                            alt="Star"
+                            color="black"
+                        />
+                        <p className="font-semibold">{data.stargazers_count}</p>
+                    </div>
+                    <div className="flex flex-row items-center gap-1">
+                        <Image
+                            src={Fork}
+                            alt="Forks"
+                            color="black"
+                        />
+                        <p className="font-semibold">{data.forks_count}</p>
+                    </div>
+                    <div className="flex flex-row items-center gap-1">
+                        <Image
+                            src={Eye}
+                            alt="Watchers"
+                            color="black"
+                        />
+                        <p className="font-semibold">{data.watchers_count}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
