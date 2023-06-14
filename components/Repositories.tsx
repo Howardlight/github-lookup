@@ -93,13 +93,11 @@ function RepositoryCard({ data }: { data: Repository }) {
             <p className="font-semibold">{data.name}</p>
             <p className="mt-2 mb-8">{data.description ? data.description : <NoDescription />}</p>
             <div className="flex flex-row justify-between">
-                <div>
-                    <Link href={data.html_url}>
-                        <button className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm pt-1 pb-1 pr-2 pl-2">
-                            Visit
-                        </button>
-                    </Link>
-                </div>
+                <Link href={data.html_url}>
+                    <button className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm pt-1 pb-1 pr-2 pl-2">
+                        Visit
+                    </button>
+                </Link>
                 <div className="flex flex-row gap-3">
                     <div className="flex flex-row items-center gap-1">
                         <Image
