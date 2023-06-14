@@ -37,7 +37,7 @@ export default function Repositories() {
 
 
 function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { profileLogin: string, pageIndex: number, setShowController: Dispatch<SetStateAction<boolean>> }) {
-    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher, { shouldRetryOnError: false });
+    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher, { shouldRetryOnError: false, revalidateOnFocus: false, revalidateOnReconnect: false, revalidateIfStale: false });
 
 
     //TODO: Add Skeleton
@@ -57,6 +57,7 @@ function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { p
     if (error) return <p>Error Occured</p>;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
+            <Loading />
             {data && data.length > 0 ?
                 data!.map((repo) => <RepositoryCard data={repo} key={repo.id} />)
                 : <NoRepos />}
@@ -71,6 +72,14 @@ function NoRepos() {
             <p className="font-semibold">No Repositories found</p>
         </div>
     );
+}
+
+function Loading() {
+    return (
+        <div>
+
+        </div>
+    )
 }
 
 function PageController({ pageIndex, setPageIndex, publicRepoNumber, showController }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>>, publicRepoNumber: number, showController: boolean }) {
