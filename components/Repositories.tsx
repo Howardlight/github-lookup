@@ -7,7 +7,7 @@ import useSWR, { SWRResponse } from "swr";
 import Image from "next/image";
 import Link from "next/link";
 
-
+import { IconAlertTriangle } from "@tabler/icons-react";
 import MessageQuestion from "@/react-svgs/message-question";
 import StarSVG from "@/public/star.svg";
 import Fork from "@/public/git-fork.svg";
@@ -54,7 +54,7 @@ function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { p
     }, [data, error, setShowController])
 
     if (!data && !error) return <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">{Array(8).fill(<Loading />)}</div>;
-    if (error) return <p>Error Occured</p>;
+    if (error) return <Error />;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
             {data && data.length > 0 ?
@@ -85,6 +85,18 @@ function Loading() {
                     <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
                     <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
                 </div>
+            </div>
+        </div>
+    )
+}
+
+function Error() {
+    return (
+        <div className="flex flex-col justify-center items-center rounded-sm w-auto h-32 mt-5">
+            <IconAlertTriangle color="#ef4444" width={128} height={128} />
+            <div className="flex flex-col items-center">
+                <p className="text-red-500 font-semibold">An Error occured</p>
+                <p className="text-red-500 text-sm">Please check the console.</p>
             </div>
         </div>
     )
