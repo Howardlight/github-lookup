@@ -5,11 +5,13 @@ import React, { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState 
 import { fetcher } from "./Utils";
 import useSWR, { SWRResponse } from "swr";
 import Image from "next/image";
+import Link from "next/link";
 
+
+import MessageQuestion from "@/react-svgs/message-question";
 import StarSVG from "@/public/star.svg";
 import Fork from "@/public/git-fork.svg";
 import Eye from "@/public/eye.svg";
-import Link from "next/link";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
@@ -91,7 +93,7 @@ function RepositoryCard({ data }: { data: Repository }) {
     return (
         <div className="rounded-sm shadow-sm p-2">
             <p className="font-semibold">{data.name}</p>
-            <p className="mt-2 mb-8">{data.description ? data.description : "No Description"}</p>
+            <p className="mt-2 mb-8">{data.description ? data.description : <NoDescription />}</p>
             <div className="flex flex-row justify-between">
                 <div>
                     <Link href={data.html_url}>
@@ -127,6 +129,15 @@ function RepositoryCard({ data }: { data: Repository }) {
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function NoDescription() {
+    return (
+        <div className="flex flex-row items-center gap-2">
+            <MessageQuestion fillColor="transparent" strokeColor="gray" />
+            <p className="text-gray-500">No Description</p>
         </div>
     )
 }
