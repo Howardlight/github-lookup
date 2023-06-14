@@ -53,11 +53,10 @@ function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { p
         return () => setShowController(false);
     }, [data, error, setShowController])
 
-    if (!data && !error) return <p>Loading...</p>;
+    if (!data && !error) return <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">{Array(8).fill(<Loading />)}</div>;
     if (error) return <p>Error Occured</p>;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
-            <Loading />
             {data && data.length > 0 ?
                 data!.map((repo) => <RepositoryCard data={repo} key={repo.id} />)
                 : <NoRepos />}
@@ -76,8 +75,17 @@ function NoRepos() {
 
 function Loading() {
     return (
-        <div>
-
+        <div className="rounded-md shadow-sm w-auto h-[138px] p-2">
+            <div className="animate-pulse rounded-md h-6 w-14 bg-gray-200"></div>
+            <div className="animate-pulse mt-2 mb-8 rounded-md h-6 w-auto bg-gray-200"></div>
+            <div className="flex flex-row justify-between">
+                <div className="rounded-md shadow-sm w-12 h-[34px] bg-gray-200"></div>
+                <div className="flex flex-row gap-3">
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
+                </div>
+            </div>
         </div>
     )
 }
