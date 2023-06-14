@@ -23,10 +23,8 @@ export default function Repositories() {
     }, [profile])
 
     //TODO: Maybe add options for sorting
-    //TODO: Add Icons for stuff like Forks and StarGazers
     //TODO: Maybe add the ability to see the README?
 
-    //TODO: Handle case when user reaches end of Repositories
     if (profile == undefined) return <Fragment />;
     else if (profile == null) return <p>Error Occured</p>;
     return (
