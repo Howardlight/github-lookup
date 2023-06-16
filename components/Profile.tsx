@@ -25,7 +25,7 @@ function ProfileComponent({ query }: { query: string }) {
     if (error || data == undefined) return <ProfileNotFound />;
     const date = new Date(data.created_at);
     return (
-        <div className="flex flex-row gap-2 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
+        <div className="flex flex-row gap-2 shadow-md rounded-sm ml-5 mr-5 pl-2 pr-2 pt-2 pb-2 dark:outline-1 dark:outline">
             <Image
                 src={data.avatar_url}
                 alt={"Avatar Image"}
@@ -45,13 +45,13 @@ function ProfileComponent({ query }: { query: string }) {
 
 function Loading() {
     return (
-        <div className="flex flex-row gap-2 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
-            <div className="animate-pulse rounded-md h-[125px] w-[125px] bg-gray-200"></div>
+        <div className="flex flex-row gap-2 dark:outline dark:outline-1 shadow-md ml-5 mr-5 pl-2 pr-2 pt-2 pb-2">
+            <div className="animate-pulse rounded-md h-[125px] w-[125px] bg-gray-200 dark:bg-gray-500"></div>
             <div className="grow grid grid-rows-4">
-                <div className="mt-1 animate-pulse rounded-md bg-gray-200 h-5 w-14"></div>
-                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44"></div>
-                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44"></div>
-                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44"></div>
+                <div className="mt-1 animate-pulse rounded-md bg-gray-200 h-5 w-14 dark:bg-gray-500"></div>
+                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44 dark:bg-gray-500"></div>
+                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44 dark:bg-gray-500"></div>
+                <div className="animate-pulse rounded-md bg-gray-200 h-3 w-44 dark:bg-gray-500"></div>
             </div>
         </div>
     )

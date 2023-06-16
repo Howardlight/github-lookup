@@ -1,8 +1,15 @@
-.github {
+.standard {
   color: black;
 }
+.noDescription {
+  color: var(--gray-400);
+}
+
 @media (prefers-color-scheme: dark) {
-  .github {
+  .standard {
     color: white;
+  }
+  .noDescription {
+    color: var(--gray-400);
   }
 }

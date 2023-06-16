@@ -1,17 +1,13 @@
 "use client";
 import { Repository } from "@/types";
 import { useProfileStore } from "@/zustand/ProfileStore";
-import React, { Dispatch, Fragment, SetStateAction, useEffect, useRef, useState } from "react";
+import React, { Dispatch, Fragment, SetStateAction, useEffect, useState } from "react";
 import { fetcher } from "./Utils";
 import useSWR, { SWRResponse } from "swr";
-import Image from "next/image";
 import Link from "next/link";
+import { IconStar, IconGitFork, IconEye, IconAlertTriangle, IconMessageQuestion } from "@tabler/icons-react";
+import SVGStyles from "../styles/SVG.module.css";
 
-import { IconAlertTriangle } from "@tabler/icons-react";
-import MessageQuestion from "@/react-svgs/message-question";
-import StarSVG from "@/public/star.svg";
-import Fork from "@/public/git-fork.svg";
-import Eye from "@/public/eye.svg";
 
 export default function Repositories() {
     const [pageIndex, setPageIndex] = useState(1);
@@ -71,15 +67,15 @@ function NoRepos() {
 
 function Loading() {
     return (
-        <div className="rounded-md shadow-sm w-auto h-[138px] p-2">
-            <div className="animate-pulse rounded-md h-6 w-14 bg-gray-200"></div>
-            <div className="animate-pulse mt-2 mb-8 rounded-md h-6 w-auto bg-gray-200"></div>
+        <div className="rounded-sm dark:outline-1 dark:outline shadow-sm w-auto h-[138px] p-2">
+            <div className="animate-pulse rounded-md h-6 w-14 bg-gray-200 dark:bg-gray-500"></div>
+            <div className="animate-pulse mt-2 mb-8 rounded-md h-6 w-auto bg-gray-200 dark:bg-gray-500"></div>
             <div className="flex flex-row justify-between">
-                <div className="rounded-md shadow-sm w-12 h-[34px] bg-gray-200"></div>
+                <div className="animate-pulse rounded-md shadow-sm w-12 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
                 <div className="flex flex-row gap-3">
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
                 </div>
             </div>
         </div>
@@ -114,7 +110,7 @@ function PageController({ pageIndex, setPageIndex, publicRepoNumber, showControl
 function RepositoryCard({ data }: { data: Repository }) {
     //TODO: Overhaul
     return (
-        <div className="rounded-sm shadow-sm p-2">
+        <div className="rounded-sm dark:outline-1 dark:outline dark:outline-white shadow-sm p-2">
             <p className="font-semibold">{data.name}</p>
             <p className="mt-2 mb-8">{data.description ? data.description : <NoDescription />}</p>
             <div className="flex flex-row justify-between">
@@ -125,27 +121,15 @@ function RepositoryCard({ data }: { data: Repository }) {
                 </Link>
                 <div className="flex flex-row gap-3">
                     <div className="flex flex-row items-center gap-1">
-                        <Image
-                            src={StarSVG}
-                            alt="Star"
-                            color="black"
-                        />
+                        <IconStar className={SVGStyles.standard} />
                         <p className="font-semibold">{data.stargazers_count}</p>
                     </div>
                     <div className="flex flex-row items-center gap-1">
-                        <Image
-                            src={Fork}
-                            alt="Forks"
-                            color="black"
-                        />
+                        <IconGitFork className={SVGStyles.standard} />
                         <p className="font-semibold">{data.forks_count}</p>
                     </div>
                     <div className="flex flex-row items-center gap-1">
-                        <Image
-                            src={Eye}
-                            alt="Watchers"
-                            color="black"
-                        />
+                        <IconEye className={SVGStyles.standard} />
                         <p className="font-semibold">{data.watchers_count}</p>
                     </div>
                 </div>
@@ -157,8 +141,9 @@ function RepositoryCard({ data }: { data: Repository }) {
 function NoDescription() {
     return (
         <div className="flex flex-row items-center gap-2">
-            <MessageQuestion fillColor="transparent" strokeColor="gray" />
-            <p className="text-gray-500">No Description</p>
+            <IconMessageQuestion className={SVGStyles.noDescription} />
+            {/* <MessageQuestion fillColor="transparent" strokeColor="gray" /> */}
+            <p className="text-gray-500 dark:text-gray-400">No Description</p>
         </div>
     )
 }
