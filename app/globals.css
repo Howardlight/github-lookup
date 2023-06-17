@@ -4,25 +4,31 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  --background-start: 255, 255, 255;
+  --background-end: 255, 255, 255;
 
   --gray-600: #4b5563;
   --gray-500: #6b7280;
   --gray-400: #9ca3af;
+
+  --dark-mode-black: #131516;
+  --dark-mode-black-rgb: 19, 21, 22;
+
+  --dark-mode-white: #cdc8c2;
+  --dark-mode-white-rgb: 205, 200, 194;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --foreground-rgb: var(--dark-mode-white);
+    --background-start: var(--dark-mode-black);
+    --background-end: var(--dark-mode-black);
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-start-rgb));
+  color: var(--foreground-rgb);
+  background: var(--background-start);
   height: 100vh;
   width: auto;
 }

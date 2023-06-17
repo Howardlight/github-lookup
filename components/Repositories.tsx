@@ -67,15 +67,15 @@ function NoRepos() {
 
 function Loading() {
     return (
-        <div className="rounded-sm dark:outline-1 dark:outline shadow-sm w-auto h-[138px] p-2">
-            <div className="animate-pulse rounded-md h-6 w-14 bg-gray-200 dark:bg-gray-500"></div>
-            <div className="animate-pulse mt-2 mb-8 rounded-md h-6 w-auto bg-gray-200 dark:bg-gray-500"></div>
+        <div className="rounded-sm shadow-sm w-auto h-[138px] p-2">
+            <div className="animate-pulse rounded-md h-6 w-14 bg-gray-200 dark:bg-dark-mode-white/60"></div>
+            <div className="animate-pulse mt-2 mb-8 rounded-md h-6 w-auto bg-gray-200 dark:bg-dark-mode-white/80"></div>
             <div className="flex flex-row justify-between">
-                <div className="animate-pulse rounded-md shadow-sm w-12 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
+                <div className="animate-pulse rounded-md shadow-sm w-12 h-[34px] bg-gray-200 dark:bg-dark-mode-white/80"></div>
                 <div className="flex flex-row gap-3">
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
-                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-gray-500"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-dark-mode-white/80"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-dark-mode-white/80"></div>
+                    <div className="animate-pulse rounded-md w-9 h-[34px] bg-gray-200 dark:bg-dark-mode-white/80"></div>
                 </div>
             </div>
         </div>
@@ -100,9 +100,9 @@ function PageController({ pageIndex, setPageIndex, publicRepoNumber, showControl
     if (!showController) return <Fragment />;
     return (
         <div className="flex flex-row items-center justify-center gap-4 pb-5">
-            <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
-            <p className="border border-gray-200 shadow-sm p-2 px-4 text-xl font-semibold">{pageIndex}</p>
-            <button disabled={publicRepoNumber - (pageIndex * 30) <= 0 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
+            <button disabled={pageIndex == 1 ? true : false} className="border border-gray-200 shadow-sm p-2 transition hover:bg-gray-100 dark:border-0 dark:font-semibold dark:bg-dark-mode-blue/80 dark:hover:bg-dark-mode-blue dark:hover:text-white dark:disabled:bg-dark-mode-gray/80 disabled:cursor-not-allowed rounded-sm w-32" onClick={() => setPageIndex(pageIndex - 1)}>Previous</button>
+            <p className="border border-gray-200 dark:border-0 dark:bg-dark-mode-blue shadow-sm px-5 py-[6px] rounded-sm text-xl font-semibold">{pageIndex}</p>
+            <button disabled={publicRepoNumber - (pageIndex * 30) <= 0 ? true : false} className="border border-gray-200 shadow-sm p-2 transition dark:border-0 dark:font-semibold dark:bg-dark-mode-blue dark:hover:bg-dark-mode-blue dark:hover:text-white dark:disabled:bg-dark-mode-gray/80 disabled:cursor-not-allowed hover:bg-gray-100 rounded-sm w-32" onClick={() => setPageIndex(pageIndex + 1)}>Next</button>
         </div>
     )
 }
@@ -110,27 +110,27 @@ function PageController({ pageIndex, setPageIndex, publicRepoNumber, showControl
 function RepositoryCard({ data }: { data: Repository }) {
     //TODO: Overhaul
     return (
-        <div className="rounded-sm dark:outline-1 dark:outline dark:outline-white shadow-sm p-2">
-            <p className="font-semibold">{data.name}</p>
-            <p className="mt-2 mb-8">{data.description ? data.description : <NoDescription />}</p>
+        <div className="rounded-sm dark:bg-dark-mode-black/10 shadow-sm p-2">
+            <p className="font-semibold dark:text-dark-mode-white/80">{data.name}</p>
+            <p className="mt-2 mb-8 dark:text-dark-mode-white/80">{data.description ? data.description : <NoDescription />}</p>
             <div className="flex flex-row justify-between">
                 <Link href={data.html_url}>
-                    <button className="border border-gray-200 shadow-sm p-2 transition dark:border-white dark:border-2 dark:hover:text-black hover:bg-gray-100 rounded-sm pt-1 pb-1 pr-2 pl-2">
+                    <button className="border border-gray-200 hover:bg-gray-100 shadow-sm p-2 transition dark:border-0 dark:bg-dark-mode-gray dark:hover:text-white dark:hover:bg-dark-mode-gray/50 rounded-sm pt-1 pb-1 pr-2 pl-2">
                         Visit
                     </button>
                 </Link>
                 <div className="flex flex-row gap-3">
                     <div className="flex flex-row items-center gap-1">
                         <IconStar className={SVGStyles.standard} />
-                        <p className="font-semibold">{data.stargazers_count}</p>
+                        <p className="font-semibold dark:text-dark-mode-white/80">{data.stargazers_count}</p>
                     </div>
                     <div className="flex flex-row items-center gap-1">
                         <IconGitFork className={SVGStyles.standard} />
-                        <p className="font-semibold">{data.forks_count}</p>
+                        <p className="font-semibold dark:text-dark-mode-white/80">{data.forks_count}</p>
                     </div>
                     <div className="flex flex-row items-center gap-1">
                         <IconEye className={SVGStyles.standard} />
-                        <p className="font-semibold">{data.watchers_count}</p>
+                        <p className="font-semibold dark:text-dark-mode-white/80">{data.watchers_count}</p>
                     </div>
                 </div>
             </div>
@@ -142,8 +142,7 @@ function NoDescription() {
     return (
         <div className="flex flex-row items-center gap-2">
             <IconMessageQuestion className={SVGStyles.noDescription} />
-            {/* <MessageQuestion fillColor="transparent" strokeColor="gray" /> */}
-            <p className="text-gray-500 dark:text-gray-400">No Description</p>
+            <p className="text-gray-500 dark:text-dark-mode-white/50">No Description</p>
         </div>
     )
 }

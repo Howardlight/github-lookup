@@ -7,9 +7,9 @@
 
 @media (prefers-color-scheme: dark) {
   .standard {
-    color: white;
+    color: rgba(var(--dark-mode-white-rgb), 0.8);
   }
   .noDescription {
-    color: var(--gray-400);
+    color: rgba(var(--dark-mode-white-rgb), 0.5);
   }
 }
