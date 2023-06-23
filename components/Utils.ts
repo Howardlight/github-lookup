@@ -5,25 +5,13 @@ export const fetcher = (url: string) => axios.get(url).then(res => res.data);
 
 export async function getProfileData(key: string): Promise<GithubProfile | undefined | null> {
   try {
-    const baseUrl = "https://api.github.com/users/";
     if (key === "") return undefined;
 
-    const req = await axios(`${baseUrl}${key}`, {
+    const data: { data: GithubProfile | undefined | null } = await axios(`api/profile/${key}`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Accept": "application/vnd.github+json"
-      }
     })
 
-    if (req.status != 200) {
-      console.error(`[getProfileData][ERROR] Req Status is not valid! status: ${req.status}`);
-      return null;
-    }
-
-    const data: GithubProfile = req.data;
-
-    return data;
+    return data.data;
   } catch (e) {
     console.error(`[getProfileData][ERROR] Could not fetch profile data!\nError: `, e);
     return null;

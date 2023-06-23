@@ -33,7 +33,7 @@ export default function Repositories() {
 
 
 function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { profileLogin: string, pageIndex: number, setShowController: Dispatch<SetStateAction<boolean>> }) {
-    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`https://api.github.com/users/${profileLogin}/repos?page=${pageIndex}`, fetcher, { shouldRetryOnError: false, revalidateOnFocus: false, revalidateOnReconnect: false });
+    const { data, error }: SWRResponse<Repository[], Error> = useSWR(`api/repositories/${profileLogin}/${pageIndex}`, fetcher, { shouldRetryOnError: false, revalidateOnFocus: false, revalidateOnReconnect: false });
 
     useEffect(() => {
 

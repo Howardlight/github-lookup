@@ -6,12 +6,7 @@ import Repositories from "@/components/Repositories";
 import SVGStyles from "../styles/SVG.module.css";
 
 export default function Home() {
-
-  //TODO: Fix Rate Limiting
-  //https://docs.github.com/en/rest/overview/resources-in-the-rest-api?apiVersion=2022-11-28#rate-limiting
-
   //TODO: Switch to Tabler's line of npm icons
-
 
   return (
     <div>
