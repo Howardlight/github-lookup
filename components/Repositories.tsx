@@ -45,7 +45,7 @@ function RepositoryComponent({ profileLogin, pageIndex, setShowController }: { p
         return () => setShowController(false);
     }, [data, error, setShowController])
 
-    if (!data && !error) return <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">{Array(8).fill(<Loading />)}</div>;
+    if (!data && !error) return <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">{Array.from({ length: 8 }, (_, i) => <Loading key={i} />)}</div>;
     if (error) return <Error />;
     return (
         <div className="flex flex-col gap-2 ml-5 mr-5 pb-5 mt-5">
@@ -112,7 +112,7 @@ function RepositoryCard({ data }: { data: Repository }) {
     return (
         <div className="rounded-sm dark:bg-dark-mode-black/10 shadow-sm p-2">
             <p className="font-semibold dark:text-dark-mode-white/80">{data.name}</p>
-            <p className="mt-2 mb-8 dark:text-dark-mode-white/80">{data.description ? data.description : <NoDescription />}</p>
+            <div className="mt-2 mb-8 dark:text-dark-mode-white/80">{data.description ? data.description : <NoDescription />}</div>
             <div className="flex flex-row justify-between">
                 <Link href={data.html_url}>
                     <button className="border border-gray-200 hover:bg-gray-100 shadow-sm p-2 transition dark:border-0 dark:bg-dark-mode-gray dark:hover:text-white dark:hover:bg-dark-mode-gray/50 rounded-sm pt-1 pb-1 pr-2 pl-2">
