@@ -6,8 +6,6 @@ import Repositories from "@/components/Repositories";
 import SVGStyles from "../styles/SVG.module.css";
 
 export default function Home() {
-  //TODO: Switch to Tabler's line of npm icons
-
   return (
     <div>
 
