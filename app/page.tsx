@@ -4,6 +4,20 @@ import { IconBrandGithubFilled } from "@tabler/icons-react";
 import { Profile } from "@/components/Profile";
 import Repositories from "@/components/Repositories";
 import SVGStyles from "../styles/SVG.module.css";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Github Lookup",
+  description: "Github Lookup allows you to search through any github account of your choice for information and all public Repositories associated with the account.",
+  openGraph: {
+    title: "Github Lookup",
+    description: "Github Lookup allows you to search through any github account of your choice for information and all public Repositories associated with the account.",
+    url: "https://github-lookup.vercel.app",
+    siteName: "Github Lookup",
+    locale: "en-US",
+    type: "website"
+  }
+}
 
 export default function Home() {
   return (
