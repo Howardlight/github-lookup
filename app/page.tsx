@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Github Lookup",
     description: "Github Lookup allows you to search through any github account of your choice for information and all public Repositories associated with the account.",
-    url: "https://github-lookup.vercel.app",
+    url: "https://github-lookup-release.vercel.app",
     siteName: "Github Lookup",
     locale: "en-US",
     type: "website"
