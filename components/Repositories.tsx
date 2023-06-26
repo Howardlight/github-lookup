@@ -95,8 +95,6 @@ function Error() {
 }
 
 function PageController({ pageIndex, setPageIndex, publicRepoNumber, showController }: { pageIndex: number, setPageIndex: Dispatch<SetStateAction<number>>, publicRepoNumber: number, showController: boolean }) {
-    //TODO: Improve Styling
-
     if (!showController) return <Fragment />;
     return (
         <div className="flex flex-row items-center justify-center gap-4 pb-5">
@@ -108,7 +106,6 @@ function PageController({ pageIndex, setPageIndex, publicRepoNumber, showControl
 }
 
 function RepositoryCard({ data }: { data: Repository }) {
-    //TODO: Overhaul
     return (
         <div className="rounded-sm dark:bg-dark-mode-black/10 shadow-sm p-2">
             <p className="font-semibold dark:text-dark-mode-white/80">{data.name}</p>
