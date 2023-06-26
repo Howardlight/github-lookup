@@ -26,9 +26,6 @@ export function Search() {
     );
 }
 
-//TODO: Very weird pattern
-// Improve this
-//TODO: Move this to its own component (separation of concern)
 function useOnQueryChange() {
     const query = useQueryStore((state) => state.query);
     useEffect(() => {
