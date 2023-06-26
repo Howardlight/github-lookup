@@ -19,15 +19,6 @@ export default function Home() {
       <Profile />
       <Repositories />
 
-
-      {/* <div className="w-[100vw] left-0 bottom-0">
-        <div className="justify-self-end flex flex-row gap-1 justify-center pt-5 font-thin">
-          <h5>Created by</h5>
-          <a href="https://github.com/Howardlight">HowardLight</a>
-          <h5>, 2022</h5>
-        </div>
-      </div> */}
-
     </div>
   );
 }
